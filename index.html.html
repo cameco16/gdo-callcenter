@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.powerplatform.com https://*.logic.azure.com; connect-src *; font-src *; style-src 'unsafe-inline' *; img-src * data:;">
+<title>GDO Call Center</title>
+<style>
+:root {
+  --azul:#0F3460; --azul-m:#16537e; --acento:#00B4D8; --acento-s:#90E0EF;
+  --fondo:#F0F4F8; --blanco:#fff; --gris:#64748B; --gris-c:#E2E8F0;
+  --ok:#10B981; --warn:#F59E0B; --err:#EF4444; --texto:#1E293B;
+  --sombra:0 4px 24px rgba(15,52,96,.10); --r:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;background:var(--fondo);color:var(--texto);min-height:100vh}
+
+/* LOGIN */
+#loginScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--azul) 0%,var(--azul-m) 60%,#0a2647 100%)}
+.login-card{background:#fff;border-radius:20px;padding:48px 40px;width:380px;box-shadow:0 24px 64px rgba(0,0,0,.25)}
+.login-logo{display:flex;align-items:center;gap:12px;margin-bottom:32px}
+.login-logo-icon{width:44px;height:44px;background:linear-gradient(135deg,var(--azul),var(--acento));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px}
+.login-logo-text{font-size:18px;font-weight:700;color:var(--azul);line-height:1.2}
+.login-logo-sub{font-size:11px;color:var(--gris)}
+.login-title{font-size:24px;font-weight:700;margin-bottom:6px}
+.login-subtitle{font-size:14px;color:var(--gris);margin-bottom:28px}
+.f-label{font-size:12px;font-weight:600;color:var(--gris);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.f-input{width:100%;padding:12px 16px;border:2px solid var(--gris-c);border-radius:var(--r);font-size:15px;outline:none;transition:border-color .2s;background:var(--fondo)}
+.f-input:focus{border-color:var(--acento);background:#fff}
+.f-group{margin-bottom:18px}
+.btn-primary{width:100%;padding:14px;background:linear-gradient(135deg,var(--azul),var(--azul-m));color:#fff;border:none;border-radius:var(--r);font-size:15px;font-weight:600;cursor:pointer;margin-top:8px}
+.login-error{background:#FEF2F2;border:1px solid #FCA5A5;color:var(--err);padding:10px 14px;border-radius:8px;font-size:13px;margin-top:12px;display:none}
+
+/* SHELL */
+#appShell{display:none;min-height:100vh}
+.sidebar{width:240px;background:var(--azul);position:fixed;top:0;left:0;bottom:0;display:flex;flex-direction:column;z-index:100}
+.sidebar-header{padding:24px 20px 20px;border-bottom:1px solid rgba(255,255,255,.08)}
+.s-logo{display:flex;align-items:center;gap:10px}
+.s-logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--acento),#48CAE4);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.s-logo-text{color:#fff;font-size:14px;font-weight:700;line-height:1.2}
+.s-logo-sub{color:rgba(255,255,255,.5);font-size:10px}
+.user-badge{margin:16px;padding:12px;background:rgba(255,255,255,.07);border-radius:10px}
+.user-badge-name{color:#fff;font-size:13px;font-weight:600}
+.user-badge-role{color:var(--acento-s);font-size:11px;margin-top:2px}
+.nav-sec{padding:8px 12px 4px;color:rgba(255,255,255,.35);font-size:10px;text-transform:uppercase;letter-spacing:1px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 16px;margin:2px 8px;border-radius:8px;cursor:pointer;color:rgba(255,255,255,.7);font-size:13px;font-weight:500;transition:background .15s,color .15s;user-select:none}
+.nav-item:hover{background:rgba(255,255,255,.08);color:#fff}
+.nav-item.active{background:var(--acento);color:#fff}
+.nav-icon{font-size:16px;width:20px;text-align:center}
+.nav-badge{margin-left:auto;background:var(--err);color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:10px}
+.sidebar-footer{margin-top:auto;padding:16px;border-top:1px solid rgba(255,255,255,.08)}
+.btn-logout{width:100%;padding:10px;border:1px solid rgba(255,255,255,.2);background:transparent;color:rgba(255,255,255,.7);border-radius:8px;cursor:pointer;font-size:13px;font-family:inherit}
+.btn-logout:hover{background:rgba(255,255,255,.08);color:#fff}
+
+/* MAIN */
+.main-content{margin-left:240px;min-height:100vh;display:flex;flex-direction:column}
+.topbar{background:#fff;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 0 var(--gris-c);position:sticky;top:0;z-index:50}
+.topbar-title{font-size:20px;font-weight:700}
+.topbar-sub{font-size:13px;color:var(--gris);margin-top:2px}
+.topbar-right{display:flex;gap:10px;align-items:center}
+.topbar-date{font-size:12px;color:var(--gris);font-family:'Cascadia Code','Consolas',monospace}
+.page{padding:28px 32px;flex:1}
+.screen{display:none}
+.screen.active{display:block}
+
+/* CARDS & STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+.stat-card{background:#fff;border-radius:var(--r);padding:20px;box-shadow:var(--sombra);border-left:4px solid transparent}
+.stat-card.blue{border-left-color:var(--acento)}.stat-card.green{border-left-color:var(--ok)}.stat-card.amber{border-left-color:var(--warn)}.stat-card.red{border-left-color:var(--err)}
+.stat-label{font-size:11px;font-weight:600;color:var(--gris);text-transform:uppercase;letter-spacing:.5px}
+.stat-value{font-size:32px;font-weight:700;margin:4px 0;font-family:'Cascadia Code','Consolas',monospace}
+.stat-sub{font-size:12px;color:var(--gris)}
+.card{background:#fff;border-radius:var(--r);box-shadow:var(--sombra);overflow:hidden}
+.card-header{padding:18px 20px;border-bottom:1px solid var(--gris-c);display:flex;align-items:center;justify-content:space-between}
+.card-title{font-size:15px;font-weight:700}
+.filters-bar{padding:14px 20px;display:flex;gap:10px;flex-wrap:wrap;border-bottom:1px solid var(--gris-c);background:#FAFBFC}
+.f-search{padding:8px 14px;border:1px solid var(--gris-c);border-radius:8px;font-size:13px;font-family:inherit;outline:none;flex:1;min-width:160px;background:#fff}
+.f-search:focus{border-color:var(--acento)}
+.f-sel{padding:8px 14px;border:1px solid var(--gris-c);border-radius:8px;font-size:13px;font-family:inherit;outline:none;background:#fff;cursor:pointer}
+table{width:100%;border-collapse:collapse}
+thead th{padding:11px 14px;text-align:left;font-size:11px;font-weight:600;color:var(--gris);text-transform:uppercase;letter-spacing:.5px;background:#FAFBFC;border-bottom:1px solid var(--gris-c)}
+tbody tr{border-bottom:1px solid var(--gris-c);transition:background .1s}
+tbody tr:hover{background:#F8FAFC}
+tbody tr:last-child{border-bottom:none}
+td{padding:11px 14px;font-size:13px}
+.mono{font-family:'Cascadia Code','Consolas',monospace;font-size:12px}
+.sub{font-size:11px;color:var(--gris);margin-top:2px}
+
+/* BADGES */
+.badge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap}
+.badge-pend{background:#FEF3C7;color:#92400E}
+.badge-gest{background:#D1FAE5;color:#065F46}
+.badge-fall{background:#FEE2E2;color:#991B1B}
+.badge-leg{background:#E0E7FF;color:#3730A3}
+.badge-ivr{background:#F0FDF4;color:#166534}
+.badge-noasig{background:#F3F4F6;color:#6B7280}
+
+/* BOTONES */
+.btn{padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s;font-family:inherit}
+.btn-sm{padding:5px 11px;font-size:12px}
+.btn-xs{padding:3px 8px;font-size:11px;border-radius:6px}
+.btn-ac{background:var(--acento);color:#fff}.btn-ac:hover{background:#0096B7}
+.btn-ok{background:var(--ok);color:#fff}.btn-ok:hover{background:#059669}
+.btn-az{background:var(--azul);color:#fff}.btn-az:hover{background:var(--azul-m)}
+.btn-ghost{background:transparent;color:var(--gris);border:1px solid var(--gris-c)}.btn-ghost:hover{background:var(--fondo)}
+.btn-warn{background:var(--warn);color:#fff}
+.btn-err{background:var(--err);color:#fff}
+
+/* MARCACION BAR */
+.marc-bar{display:flex;gap:3px;margin-top:4px}
+.marc-dot{width:20px;height:6px;border-radius:3px}
+.marc-dot.done{background:var(--acento)}
+.marc-dot.empty{background:var(--gris-c)}
+.marc-dot.fail{background:var(--err)}
+.marc-dot.ok{background:var(--ok)}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(2px)}
+.modal-overlay.open{display:flex}
+.modal{background:#fff;border-radius:16px;padding:28px 28px 24px;width:540px;max-width:95vw;max-height:90vh;overflow-y:auto;box-shadow:0 24px 64px rgba(0,0,0,.2)}
+.modal-lg{width:680px}
+.modal-title{font-size:18px;font-weight:700;margin-bottom:4px}
+.modal-sub{font-size:13px;color:var(--gris);margin-bottom:22px}
+.modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.modal-grid.full{grid-template-columns:1fr}
+.modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:22px;padding-top:16px;border-top:1px solid var(--gris-c)}
+.fg{display:flex;flex-direction:column;gap:5px}
+.fg-full{grid-column:1/-1}
+.fl{font-size:11px;font-weight:600;color:var(--gris);text-transform:uppercase;letter-spacing:.4px}
+.fi,.fs,.ft{padding:10px 13px;border:1.5px solid var(--gris-c);border-radius:8px;font-size:13px;font-family:inherit;outline:none;background:#fff;transition:border-color .15s}
+.fi:focus,.fs:focus,.ft:focus{border-color:var(--acento)}
+.ft{resize:vertical;min-height:72px}
+.fsec{font-size:12px;font-weight:700;color:var(--azul);text-transform:uppercase;letter-spacing:.5px;padding:8px 0 4px;border-bottom:1px solid var(--gris-c);margin-bottom:4px;grid-column:1/-1}
+
+/* ASIGNACION */
+.asig-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+.agente-card{background:#fff;border-radius:var(--r);padding:16px;box-shadow:var(--sombra);border:2px solid transparent;cursor:pointer;transition:border-color .15s}
+.agente-card:hover{border-color:var(--acento-s)}
+.agente-card.selected{border-color:var(--acento);background:#F0FDFF}
+.agente-card.ausente{opacity:.45;pointer-events:none;border-color:var(--gris-c)}
+.agente-nombre{font-size:13px;font-weight:700;color:var(--texto)}
+.agente-carga{font-size:12px;color:var(--gris);margin-top:3px}
+.agente-count{font-size:22px;font-weight:700;color:var(--acento);font-family:'Cascadia Code','Consolas',monospace}
+.ausente-toggle{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--gris);margin-top:6px}
+.chk{width:16px;height:16px;cursor:pointer;accent-color:var(--err)}
+
+/* INFORMES */
+.chart-wrap{padding:20px}
+.bar-chart{display:flex;gap:10px;align-items:flex-end;height:140px}
+.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px}
+.bar{width:100%;background:linear-gradient(to top,var(--acento),var(--acento-s));border-radius:5px 5px 0 0;min-height:4px;transition:height .5s ease}
+.bar-label{font-size:10px;color:var(--gris);text-align:center}
+.bar-val{font-size:11px;font-weight:700;color:var(--azul);font-family:'Cascadia Code','Consolas',monospace}
+
+/* TOAST */
+.toast-ct{position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:8px}
+.toast{background:var(--texto);color:#fff;padding:12px 18px;border-radius:10px;font-size:13px;font-weight:500;box-shadow:0 8px 24px rgba(0,0,0,.2);animation:slideIn .3s ease;display:flex;align-items:center;gap:10px}
+.toast.ok{background:var(--ok)}.toast.err{background:var(--err)}
+@keyframes slideIn{from{transform:translateX(80px);opacity:0}to{transform:translateX(0);opacity:1}}
+
+/* LOADING */
+.loading{position:fixed;inset:0;background:rgba(255,255,255,.85);display:none;align-items:center;justify-content:center;z-index:5000;flex-direction:column;gap:14px;backdrop-filter:blur(2px)}
+.loading.show{display:flex}
+.spinner{width:40px;height:40px;border:3px solid var(--gris-c);border-top-color:var(--acento);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-txt{font-size:14px;color:var(--gris);font-weight:500}
+
+/* EMPTY */
+.empty{text-align:center;padding:60px 20px}
+.empty-icon{font-size:44px;margin-bottom:12px}
+.empty-title{font-size:15px;font-weight:700;margin-bottom:6px}
+.empty-sub{font-size:13px;color:var(--gris)}
+
+/* DETALLE PANEL */
+.detalle-info{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.detalle-field{padding:10px;background:var(--fondo);border-radius:8px}
+.detalle-field .fl{margin-bottom:4px}
+.detalle-field .val{font-size:13px;color:var(--texto)}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="login-logo-icon">📞</div>
+      <div>
+        <div class="login-logo-text">GDO Call Center</div>
+        <div class="login-logo-sub">Gases de Occidente</div>
+      </div>
+    </div>
+    <div class="login-title">Bienvenido</div>
+    <div class="login-subtitle">Ingresa con tu usuario y contraseña</div>
+    <div class="f-group"><div class="f-label">Usuario</div><input class="f-input" id="loginUser" type="text" placeholder="Ej: Darminsong" autocomplete="off"></div>
+    <div class="f-group"><div class="f-label">Contraseña</div><input class="f-input" id="loginPin" type="password" placeholder="Contraseña"></div>
+    <button class="btn-primary" onclick="doLogin()">Ingresar</button>
+    <div class="login-error" id="loginError">Usuario o contraseña incorrectos</div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="appShell">
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <div class="s-logo">
+        <div class="s-logo-icon">📞</div>
+        <div><div class="s-logo-text">GDO Call Center</div><div class="s-logo-sub">Gases de Occidente</div></div>
+      </div>
+    </div>
+    <div class="user-badge">
+      <div class="user-badge-name" id="sidebarName">—</div>
+      <div class="user-badge-role" id="sidebarRole">—</div>
+    </div>
+    <div class="nav-sec">Principal</div>
+    <div class="nav-item active" onclick="nav('ordenes',this)"><span class="nav-icon">📋</span>Mis Órdenes<span class="nav-badge" id="badgePend">0</span></div>
+    <div class="nav-item" onclick="nav('marcaciones',this)"><span class="nav-icon">📞</span>Marcaciones</div>
+    <div class="nav-item" onclick="nav('ivr',this)"><span class="nav-icon">📠</span>IVR</div>
+    <div class="nav-sec admin-only" style="display:none">Administración</div>
+    <div class="nav-item admin-only" style="display:none" onclick="nav('asignacion',this)"><span class="nav-icon">🔄</span>Asignación</div>
+    <div class="nav-sec">Reportes</div>
+    <div class="nav-item" onclick="nav('informes',this)"><span class="nav-icon">📊</span>Informes</div>
+    <div class="sidebar-footer"><button class="btn-logout" onclick="doLogout()">← Cerrar sesión</button></div>
+  </div>
+
+  <div class="main-content">
+    <div class="topbar">
+      <div><div class="topbar-title" id="topbarTitle">Mis Órdenes</div><div class="topbar-sub" id="topbarSub">Órdenes asignadas pendientes de gestión</div></div>
+      <div class="topbar-right">
+        <div class="topbar-date" id="topbarDate"></div>
+        <button class="btn btn-ghost btn-sm" onclick="loadOrdenes()">↻ Actualizar</button>
+      </div>
+    </div>
+    <div class="page">
+
+      <!-- ÓRDENES -->
+      <div class="screen active" id="screen-ordenes">
+        <div class="stats-grid">
+          <div class="stat-card blue"><div class="stat-label">Total asignadas</div><div class="stat-value" id="sTotal">0</div><div class="stat-sub">En gestión</div></div>
+          <div class="stat-card amber"><div class="stat-label">Sin contacto</div><div class="stat-value" id="sPend">0</div><div class="stat-sub">Pendientes</div></div>
+          <div class="stat-card green"><div class="stat-label">Contactadas</div><div class="stat-value" id="sGest">0</div><div class="stat-sub">Con marcación</div></div>
+          <div class="stat-card red"><div class="stat-label">Sin éxito</div><div class="stat-value" id="sVenc">0</div><div class="stat-sub">3 intentos fallidos</div></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">Mis órdenes</div><button class="btn btn-ac btn-sm" onclick="openMarcacion(null)">+ Marcación</button></div>
+          <div class="filters-bar">
+            <input class="f-search" id="fBuscar" placeholder="🔍 Buscar orden, cliente, dirección..." oninput="renderOrdenes()">
+            <select class="f-sel" id="fEstado" onchange="renderOrdenes()">
+              <option value="">Todos los estados</option>
+              <option value="Pendiente">Pendiente</option>
+              <option value="Gestionado">Gestionado</option>
+              <option value="Fallido">Fallido</option>
+            </select>
+          </div>
+          <table><thead><tr><th>Orden</th><th>Cliente</th><th>Dirección</th><th>Teléfono</th><th>F. Recibido</th><th>Marcaciones</th><th>Estado</th><th>Acciones</th></tr></thead>
+          <tbody id="tbOrdenes"></tbody></table>
+        </div>
+      </div>
+
+      <!-- MARCACIONES -->
+      <div class="screen" id="screen-marcaciones">
+        <div class="card">
+          <div class="card-header"><div class="card-title">Historial de marcaciones</div><button class="btn btn-ac btn-sm" onclick="openMarcacion(null)">+ Registrar</button></div>
+          <table><thead><tr><th>Orden</th><th>Cliente</th><th>Campo</th><th>Resultado</th><th>Fecha / Hora</th></tr></thead>
+          <tbody id="tbMarcaciones"></tbody></table>
+        </div>
+      </div>
+
+      <!-- IVR -->
+      <div class="screen" id="screen-ivr">
+        <div class="card" style="margin-bottom:20px;background:linear-gradient(135deg,var(--azul),var(--azul-m));color:#fff;border-radius:var(--r)">
+          <div style="padding:20px 24px;display:flex;align-items:center;gap:16px">
+            <div style="font-size:32px">📠</div>
+            <div><div style="font-size:16px;font-weight:700">Registro manual IVR</div><div style="font-size:13px;opacity:.7">Crea registros de clientes que llegaron por canal IVR sin orden previa</div></div>
+            <button class="btn btn-sm" style="margin-left:auto;background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3)" onclick="openIVR()">+ Crear registro</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">Registros IVR creados</div></div>
+          <table><thead><tr><th>Orden</th><th>Cliente</th><th>Teléfono</th><th>Motivo</th><th>Creado por</th><th>Fecha</th></tr></thead>
+          <tbody id="tbIVR"></tbody></table>
+        </div>
+      </div>
+
+      <!-- ASIGNACIÓN (admin) -->
+      <div class="screen" id="screen-asignacion">
+        <div class="card" style="margin-bottom:20px">
+          <div class="card-header">
+            <div><div class="card-title">Asignación masiva de órdenes</div><div style="font-size:12px;color:var(--gris);margin-top:2px" id="asigSubtitulo">Selecciona agentes y asigna las órdenes sin agente</div></div>
+            <div style="display:flex;gap:8px">
+              <button class="btn btn-ghost btn-sm" onclick="loadOrdenes()">↻ Actualizar</button>
+              <button class="btn btn-ac btn-sm" id="btnAsignar" onclick="ejecutarAsignacion()">Asignar órdenes</button>
+            </div>
+          </div>
+          <div style="padding:20px">
+            <div style="font-size:13px;font-weight:600;color:var(--texto);margin-bottom:12px">
+              Órdenes sin asignar: <span id="countSinAsignar" style="color:var(--acento);font-size:18px;font-weight:700">0</span>
+              <span style="font-size:12px;color:var(--gris);margin-left:8px">Se distribuirán equitativamente entre los agentes activos seleccionados</span>
+            </div>
+            <div style="font-size:12px;font-weight:600;color:var(--gris);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">Agentes disponibles — marca los ausentes para excluirlos</div>
+            <div class="asig-grid" id="agentesGrid"></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">Órdenes sin agente asignado</div></div>
+          <table><thead><tr><th>Orden</th><th>Cliente</th><th>Dirección</th><th>Teléfono</th><th>F. Recibido</th></tr></thead>
+          <tbody id="tbSinAsignar"></tbody></table>
+        </div>
+      </div>
+
+      <!-- INFORMES -->
+      <div class="screen" id="screen-informes">
+        <div class="stats-grid">
+          <div class="stat-card blue"><div class="stat-label">Total gestionadas</div><div class="stat-value" id="rTotal">0</div><div class="stat-sub">Este mes</div></div>
+          <div class="stat-card green"><div class="stat-label">Tasa contacto</div><div class="stat-value" id="rContacto">0%</div><div class="stat-sub">Contactados / Total</div></div>
+          <div class="stat-card amber"><div class="stat-label">Prom. intentos</div><div class="stat-value" id="rIntentos">0</div><div class="stat-sub">Por orden</div></div>
+          <div class="stat-card red"><div class="stat-label">Sin contacto</div><div class="stat-value" id="rFallidos">0</div><div class="stat-sub">Requieren seguimiento</div></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+          <div class="card">
+            <div class="card-header"><div class="card-title">Marcaciones por resultado</div></div>
+            <div style="padding:16px"><table><thead><tr><th>Resultado</th><th>Cantidad</th><th>%</th></tr></thead><tbody id="tbResultados"></tbody></table></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div class="card-title">Gestión por agente</div></div>
+            <div style="padding:16px"><table><thead><tr><th>Agente</th><th>Asignadas</th><th>Contactadas</th></tr></thead><tbody id="tbAgentes"></tbody></table></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- MODAL MARCACIÓN -->
+<div class="modal-overlay" id="modalMarcacion">
+  <div class="modal">
+    <div class="modal-title">📞 Registrar marcación</div>
+    <div class="modal-sub">Documenta el intento de contacto</div>
+    <div class="modal-grid">
+      <div class="fg"><label class="fl">N° Orden</label><input class="fi" id="mOrden" placeholder="Ej: 123456"></div>
+      <div class="fg"><label class="fl">Intento</label>
+        <select class="fs" id="mIntento">
+          <option value="1">1 — Marcación Inicial</option>
+          <option value="2">2 — Marcación 2</option>
+          <option value="3">3 — Marcación 3</option>
+        </select>
+      </div>
+      <div class="fg"><label class="fl">Resultado</label>
+        <select class="fs" id="mResultado">
+          <option>No contesta</option>
+          <option>Contactado - Agendado</option>
+          <option>Contactado - Rechazó</option>
+          <option>Buzón de voz</option>
+          <option>Número equivocado</option>
+          <option>Número no existe</option>
+          <option>Fuera de servicio</option>
+          <option>Reagendado por cliente</option>
+          <option>IVR - No marcó opción</option>
+        </select>
+      </div>
+      <div class="fg"><label class="fl">Canal</label>
+        <select class="fs" id="mCanal"><option>Llamada</option><option>WhatsApp</option><option>SMS</option></select>
+      </div>
+      <div class="fg fg-full"><label class="fl">Observación</label><textarea class="ft" id="mObs" placeholder="Detalle del contacto..."></textarea></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('modalMarcacion')">Cancelar</button>
+      <button class="btn btn-ac" onclick="guardarMarcacion()">Guardar marcación</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL IVR -->
+<div class="modal-overlay" id="modalIVR">
+  <div class="modal">
+    <div class="modal-title">📠 Nuevo registro IVR</div>
+    <div class="modal-sub">Completa los datos del cliente IVR</div>
+    <div class="modal-grid">
+      <div class="fg"><label class="fl">N° Orden (si tiene)</label><input class="fi" id="iOrden" placeholder="Dejar vacío si no tiene"></div>
+      <div class="fg"><label class="fl">Nombre cliente</label><input class="fi" id="iNombre" placeholder="Nombre completo"></div>
+      <div class="fg"><label class="fl">Teléfono</label><input class="fi" id="iTel" placeholder="3001234567"></div>
+      <div class="fg"><label class="fl">Dirección</label><input class="fi" id="iDir" placeholder="Dirección"></div>
+      <div class="fg"><label class="fl">Motivo contacto</label>
+        <select class="fs" id="iMotivo"><option>Solicitud instalación</option><option>Consulta de estado</option><option>Reagendamiento</option><option>Queja</option><option>Otro</option></select>
+      </div>
+      <div class="fg"><label class="fl">Prioridad</label>
+        <select class="fs" id="iPrioridad"><option>Normal</option><option>Alta</option><option>Urgente</option></select>
+      </div>
+      <div class="fg fg-full"><label class="fl">Observaciones</label><textarea class="ft" id="iObs"></textarea></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('modalIVR')">Cancelar</button>
+      <button class="btn btn-az" onclick="guardarIVR()">Crear registro</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL DETALLE -->
+<div class="modal-overlay" id="modalDetalle">
+  <div class="modal modal-lg">
+    <div class="modal-title" id="detTitle">Detalle de orden</div>
+    <div class="modal-sub" id="detSub"></div>
+    <div class="detalle-info" id="detInfo"></div>
+    <div style="font-size:12px;font-weight:700;color:var(--azul);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">Historial de marcaciones</div>
+    <table style="width:100%;border-collapse:collapse">
+      <thead><tr style="background:var(--fondo)"><th style="padding:8px 12px;font-size:11px;text-align:left;color:var(--gris)">Campo</th><th style="padding:8px 12px;font-size:11px;text-align:left;color:var(--gris)">Resultado</th><th style="padding:8px 12px;font-size:11px;text-align:left;color:var(--gris)">Fecha</th></tr></thead>
+      <tbody id="detMarcaciones"></tbody>
+    </table>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('modalDetalle')">Cerrar</button>
+      <button class="btn btn-ac" onclick="openMarcacionDesdeDetalle()">📞 Registrar marcación</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-ct" id="toastCt"></div>
+<div class="loading" id="loadingDiv"><div class="spinner"></div><div class="loading-txt" id="loadingTxt">Cargando...</div></div>
+
+<script>
+// ═══════════════════════════════════════════════════
+// CONFIGURACIÓN — Reemplaza las URLs con tus flows
+// ═══════════════════════════════════════════════════
+const CFG = {
+  FLOW_LOGIN:    'https://default4e9a810e60554e88b023af50fe48e5.28.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/358e35b8548f4932b0794cadd3c634ba/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=uxVp3nXtGEkQTS4QKdq4fu6_z_hg7ZlcY6kM-kGxLmc',
+  FLOW_ORDENES:  'https://default4e9a810e60554e88b023af50fe48e5.28.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/20c2a1af42c24d67a860b7cdcec86933/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=v7l-ZbnWKbOu2LK3DWrERSBID_k7NtEB3eCC1l88M18',
+  FLOW_UPDATE:   'TU_URL_FLOW_UPDATE_AQUI',   // UpdateRegApp con HTTP trigger
+  FLOW_CREAR:    'TU_URL_FLOW_CREAR_AQUI',    // CrearRegApp con HTTP trigger
+};
+
+// ═══════════════════════════════════════════════════
+// USUARIOS (validación local — espejo de UsuariosApp)
+// ═══════════════════════════════════════════════════
+const USUARIOS = [
+  {u:'Erikatm',    p:'Orion01',  nombre:'Erika Tatiana Marin Castro',      rol:'Agente',    activo:'SI'},
+  {u:'Alejandrol', p:'Orion02',  nombre:'Alejandro Londoño',               rol:'Agente',    activo:'SI'},
+  {u:'Leidymc',    p:'Orion05',  nombre:'Leidy Tatiana Marin Ceron',       rol:'Agente',    activo:'SI'},
+  {u:'Mariacc',    p:'Orion06',  nombre:'Maria del Carmen Castañeda',      rol:'Agente',    activo:'SI'},
+  {u:'Juanao',     p:'Orion08',  nombre:'Juan Pablo Acosta Ospina',        rol:'Agente',    activo:'SI'},
+  {u:'Darminsong', p:'Orion10',  nombre:'Darminson Gutierrez Rivas',       rol:'Agente',    activo:'SI'},
+  {u:'JohanaC',    p:'Orion07',  nombre:'Johana Cuaran',                   rol:'AdminCall', activo:'SI'},
+  {u:'Angycm',     p:'Gases01',  nombre:'Angy Catalina Martinez',          rol:'Admin',     activo:'SI'},
+  {u:'Monicabn',   p:'Gases09',  nombre:'Monica Botero',                   rol:'Admin',     activo:'SI'},
+  {u:'Estebans',   p:'Gases11',  nombre:'Esteban Sardi',                   rol:'Admin',     activo:'SI'},
+  {u:'Sofih',      p:'Gases11',  nombre:'Sofía Hernández',                 rol:'Admin',     activo:'SI'},
+  {u:'Anthonyp',   p:'Orion12',  nombre:'Anthony Michael Potes Atehortúa', rol:'Agente',   activo:'SI'},
+  {u:'Davidca',    p:'Gases01',  nombre:'David Santiago Cardenas Araque',  rol:'Admin',     activo:'SI'},
+  {u:'Carlosm',    p:'Orion14',  nombre:'Carlos Mario Perdomo',            rol:'AdminCall', activo:'SI'},
+  {u:'Hansg',      p:'Orion15',  nombre:'Hans Guevara',                    rol:'Agente',    activo:'SI'},
+];
+
+// ═══════════════════════════════════════════════════
+// ESTADO
+// ═══════════════════════════════════════════════════
+let ST = { usuario:null, ordenes:[], ivrRecords:[], ordenActual:null };
+
+// ═══════════════════════════════════════════════════
+// UTILS
+// ═══════════════════════════════════════════════════
+const showLoad = (t='Cargando...')=>{ document.getElementById('loadingTxt').textContent=t; document.getElementById('loadingDiv').classList.add('show'); };
+const hideLoad = ()=>document.getElementById('loadingDiv').classList.remove('show');
+const fmt = d=>{ if(!d)return'—'; try{ return new Date(d).toLocaleDateString('es-CO',{day:'2-digit',month:'2-digit',year:'numeric'}); }catch{return d;} };
+
+function toast(msg,tipo=''){
+  const c=document.getElementById('toastCt'), t=document.createElement('div');
+  t.className='toast '+(tipo==='ok'?'ok':tipo==='err'?'err':'');
+  t.textContent=(tipo==='ok'?'✅ ':tipo==='err'?'❌ ':'ℹ️ ')+msg;
+  c.appendChild(t); setTimeout(()=>t.remove(),3500);
+}
+
+function openModal(id){ document.getElementById(id).classList.add('open'); }
+function closeModal(id){ document.getElementById(id).classList.remove('open'); }
+document.querySelectorAll('.modal-overlay').forEach(o=>o.addEventListener('click',e=>{ if(e.target===o) o.classList.remove('open'); }));
+
+// Mapeo de campos SharePoint → app
+function mapOrden(o){
+  return {
+    id:              o.ID || o.id || '',
+    orden:           o.Title || o.Orden || '',
+    cliente:         o.Cliente || '',
+    nombre:          o.Nombre || o.nombre || '',
+    direccion:       o.Direccion || o.Dirección || '',
+    barrio:          o.Barrio || '',
+    localidad:       o.Localidad || '',
+    telefono:        o.Telefono || o.Teléfono || o['TELEFONO EXTRAIDO'] || '',
+    solicitud:       o.Solicitud || '',
+    tipoTrabajo:     o['Tipo de trabajo'] || o.TipoDeTrabajo || '',
+    fechaRecibido:   o['FECHA DE RECIBIDO BD'] || o['Fecha de Recibido BD'] || '',
+    fechaAsignacion: o['Fecha de Asignación'] || o['Fecha de Asignacion'] || '',
+    agente:          o.AgenteResponsable || o['AGENTE RESPONSABLE'] || '',
+    estadoAsignacion:o.EstadoAsignacion || '',
+    resultado:       o.Resultado || o.RESULTADO || '',
+    observacion:     o.Observacion || o['OBSERVACIÓN'] || o.Observación || '',
+    estado:          o.Estado || 'Pendiente',
+    legalizada:      o.LegalizadaSiNo || o['Legalizada si/no'] || 'No',
+    marcIni:         o.MarcacionInicial || o['Marcación Inicial'] || '',
+    fechaMarcIni:    o.FechaMarcIni || o['Fecha MarcIni'] || '',
+    marc2:           o.Marcacion2 || o['Marcación 2'] || '',
+    fechaMarc2:      o.FechaMarc2 || o['Fecha Marc2'] || '',
+    marc3:           o.Marcacion3 || o['Marcación 3'] || '',
+    fechaMarc3:      o.FechaMarc3 || o['Fecha Marc3'] || '',
+    comodato:        o.Comodato || '',
+    factElec:        o.FacturacionElectronica || o['Facturación Electrónica'] || '',
+    tratDatos:       o.TratamientoDatosPersonales || '',
+    causal:          o.CausalLegalizacion || o['CAUSAL DE LEGALIZACIÓN'] || '',
+    rad:             o.RAD || '',
+    idLlamada:       o.IDLlamada || '',
+    formulario:      o.Formulario || o.FORMULARIO || '',
+  };
+}
+
+function estadoOrden(o){
+  if(o.legalizada==='SI'||o.legalizada==='Si') return 'Legalizada';
+  if(!o.agente) return 'Sin asignar';
+  const marc=[o.marcIni,o.marc2,o.marc3].filter(m=>m&&m.trim());
+  if(!marc.length) return 'Pendiente';
+  if(marc.some(m=>m.toLowerCase().includes('agendado'))) return 'Gestionado';
+  if(marc.length===3) return 'Fallido';
+  return 'Pendiente';
+}
+
+function badgeEstado(e){
+  const map={'Pendiente':'badge-pend','Gestionado':'badge-gest','Fallido':'badge-fall','Legalizada':'badge-leg','Sin asignar':'badge-noasig'};
+  return `<span class="badge ${map[e]||'badge-pend'}">${e}</span>`;
+}
+
+// ═══════════════════════════════════════════════════
+// LOGIN / LOGOUT
+// ═══════════════════════════════════════════════════
+async function doLogin(){
+  const u=document.getElementById('loginUser').value.trim();
+  const p=document.getElementById('loginPin').value.trim();
+  if(!u||!p){ showErr('Completa usuario y contraseña'); return; }
+  showLoad('Verificando credenciales...');
+  try {
+    let userData=null;
+    // Intentar flow real (trae usuario + órdenes juntos)
+    if(CFG.FLOW_LOGIN && !CFG.FLOW_LOGIN.includes('TU_URL')){
+      try{
+        const r=await fetch(CFG.FLOW_LOGIN,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({usuario:u,password:p})});
+        if(r.ok){
+          const d=await r.json();
+          if(d&&d.nombre){
+            userData={nombre:d.nombre, rol:d.rol, activo:d.activo||'SI'};
+            // Procesar órdenes que vienen en la misma respuesta
+            if(d.ordenes && Array.isArray(d.ordenes)){
+              ST.ordenes=d.ordenes.map(mapOrden);
+              console.log('✅ Órdenes cargadas desde login:',ST.ordenes.length);
+            }
+          }
+        } else if(r.status===401) throw new Error('Credenciales incorrectas');
+      }catch(e){ if(e.message==='Credenciales incorrectas') throw e; }
+    }
+    // Fallback local
+    if(!userData){
+      const found=USUARIOS.find(x=>x.u.toLowerCase()===u.toLowerCase()&&x.p===p);
+      if(!found) throw new Error('Credenciales incorrectas');
+      if(found.activo!=='SI') throw new Error('Usuario inactivo');
+      userData={nombre:found.nombre, rol:found.rol, activo:'SI'};
+    }
+    ST.usuario={...userData, _usuario:u, _password:p};
+    iniciarApp();
+  } catch(e){
+    hideLoad();
+    showErr(e.message==='Credenciales incorrectas'?'Usuario o contraseña incorrectos':'Usuario inactivo. Contacta al administrador.');
+  }
+}
+
+function showErr(m){ const el=document.getElementById('loginError'); el.textContent=m; el.style.display='block'; }
+
+function iniciarApp(){
+  document.getElementById('loginScreen').style.display='none';
+  document.getElementById('appShell').style.display='block';
+  document.getElementById('sidebarName').textContent=ST.usuario.nombre;
+  document.getElementById('sidebarRole').textContent=ST.usuario.rol;
+  if(['Admin','AdminCall'].includes(ST.usuario.rol)) document.querySelectorAll('.admin-only').forEach(el=>el.style.display='');
+  updateClock(); setInterval(updateClock,60000);
+  // Si ya se cargaron órdenes desde el login, no llamar de nuevo
+  if(ST.ordenes.length > 0){
+    renderOrdenes(); updateStats(); hideLoad();
+  } else {
+    loadOrdenes();
+  }
+}
+
+function doLogout(){
+  ST={usuario:null,ordenes:[],ivrRecords:[],ordenActual:null};
+  document.getElementById('appShell').style.display='none';
+  document.getElementById('loginScreen').style.display='flex';
+  document.getElementById('loginUser').value='';
+  document.getElementById('loginPin').value='';
+  document.getElementById('loginError').style.display='none';
+  document.querySelectorAll('.admin-only').forEach(el=>el.style.display='none');
+}
+
+function updateClock(){
+  const n=new Date();
+  document.getElementById('topbarDate').textContent=n.toLocaleDateString('es-CO',{weekday:'short',day:'2-digit',month:'short'})+' '+n.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'});
+}
+
+// ═══════════════════════════════════════════════════
+// NAVEGACIÓN
+// ═══════════════════════════════════════════════════
+const SCREENS={
+  ordenes:   {title:'Mis Órdenes',      sub:'Órdenes asignadas pendientes de gestión'},
+  marcaciones:{title:'Marcaciones',     sub:'Historial de intentos de contacto'},
+  ivr:       {title:'IVR',              sub:'Creación manual de registros IVR'},
+  asignacion:{title:'Asignación',       sub:'Distribución de órdenes entre agentes'},
+  informes:  {title:'Informes',         sub:'Métricas y resultados de gestión'},
+};
+function nav(name, el){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('screen-'+name).classList.add('active');
+  if(el) el.classList.add('active');
+  document.getElementById('topbarTitle').textContent=SCREENS[name]?.title||name;
+  document.getElementById('topbarSub').textContent=SCREENS[name]?.sub||'';
+  if(name==='informes') renderInformes();
+  if(name==='marcaciones') renderMarcaciones();
+  if(name==='asignacion') renderAsignacion();
+  if(name==='ivr') renderIVR();
+}
+
+// ═══════════════════════════════════════════════════
+// CARGA DE ÓRDENES
+// ═══════════════════════════════════════════════════
+async function loadOrdenes(){
+  showLoad('Actualizando órdenes...');
+  // El botón Actualizar vuelve a llamar el login para refrescar todo
+  // ya que el CSP de SharePoint bloquea llamadas directas post-login
+  try{
+    const u=ST.usuario._usuario||'';
+    const p=ST.usuario._password||'';
+    // Si tenemos credenciales guardadas, refrescamos
+    if(u && p && CFG.FLOW_LOGIN && !CFG.FLOW_LOGIN.includes('TU_URL')){
+      const r=await fetch(CFG.FLOW_LOGIN,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({usuario:u,password:p})});
+      if(r.ok){
+        const d=await r.json();
+        if(d&&d.ordenes&&Array.isArray(d.ordenes)){
+          ST.ordenes=d.ordenes.map(mapOrden);
+          console.log('✅ Órdenes actualizadas:',ST.ordenes.length);
+          toast('Órdenes actualizadas','ok');
+        }
+      }
+    } else {
+      toast('Cierra sesión y vuelve a ingresar para actualizar','');
+    }
+  }catch(e){ console.warn('Error actualizando:',e.message); toast('Error al actualizar','err'); }
+  renderOrdenes(); updateStats(); hideLoad();
+}
+
+// ═══════════════════════════════════════════════════
+// RENDER ÓRDENES
+// ═══════════════════════════════════════════════════
+function getOrdenesVisibles(){
+  const esAdmin=['Admin','AdminCall'].includes(ST.usuario.rol);
+  return ST.ordenes.filter(o=>{
+    // Agentes solo ven sus órdenes asignadas (EstadoAsignacion = SI)
+    if(!esAdmin && o.agente!==ST.usuario.nombre) return false;
+    if(!esAdmin && o.estadoAsignacion!=='SI') return false;
+    return true;
+  });
+}
+
+function renderOrdenes(){
+  const buscar=document.getElementById('fBuscar').value.toLowerCase();
+  const filtEstado=document.getElementById('fEstado').value;
+  const base=getOrdenesVisibles();
+  const filtradas=base.filter(o=>{
+    const est=estadoOrden(o);
+    const txt=(o.orden+o.nombre+o.cliente+o.direccion).toLowerCase();
+    return (!buscar||txt.includes(buscar))&&(!filtEstado||est===filtEstado);
+  });
+
+  const tb=document.getElementById('tbOrdenes');
+  if(!filtradas.length){
+    tb.innerHTML=`<tr><td colspan="8"><div class="empty"><div class="empty-icon">📭</div><div class="empty-title">Sin órdenes</div><div class="empty-sub">No hay resultados con ese filtro</div></div></td></tr>`;
+    return;
+  }
+  tb.innerHTML=filtradas.map(o=>{
+    const est=estadoOrden(o);
+    const marcCount=[o.marcIni,o.marc2,o.marc3].filter(m=>m&&m.trim()).length;
+    const dots=[o.marcIni,o.marc2,o.marc3].map(m=>{
+      if(!m||!m.trim()) return '<div class="marc-dot empty"></div>';
+      if(m.toLowerCase().includes('agendado')) return '<div class="marc-dot ok"></div>';
+      return '<div class="marc-dot fail"></div>';
+    }).join('');
+    return `<tr>
+      <td><span class="mono">${o.orden}</span><div class="sub">${o.tipoTrabajo||''}</div></td>
+      <td>${o.nombre||o.cliente||'—'}<div class="sub">${o.cliente||''}</div></td>
+      <td><span style="font-size:12px">${o.direccion||'—'}</span><div class="sub">${o.barrio||''}</div></td>
+      <td><span class="mono" style="font-size:12px">${o.telefono||'—'}</span></td>
+      <td>${fmt(o.fechaRecibido)}</td>
+      <td><span style="font-size:11px;color:var(--gris)">${marcCount}/3</span><div class="marc-bar">${dots}</div></td>
+      <td>${badgeEstado(est)}</td>
+      <td><div style="display:flex;gap:5px">
+        <button class="btn btn-xs btn-ac" onclick="openMarcacion('${o.orden}')" title="Marcación">📞</button>
+        <button class="btn btn-xs btn-ghost" onclick="verDetalle('${o.orden}')" title="Detalle">👁</button>
+      </div></td>
+    </tr>`;
+  }).join('');
+}
+
+function updateStats(){
+  const vis=getOrdenesVisibles();
+  const total=vis.length;
+  const pend=vis.filter(o=>estadoOrden(o)==='Pendiente').length;
+  const gest=vis.filter(o=>estadoOrden(o)==='Gestionado').length;
+  const fall=vis.filter(o=>estadoOrden(o)==='Fallido').length;
+  document.getElementById('sTotal').textContent=total;
+  document.getElementById('sPend').textContent=pend;
+  document.getElementById('sGest').textContent=gest;
+  document.getElementById('sVenc').textContent=fall;
+  document.getElementById('badgePend').textContent=pend;
+}
+
+// ═══════════════════════════════════════════════════
+// DETALLE
+// ═══════════════════════════════════════════════════
+function verDetalle(orden){
+  const o=ST.ordenes.find(x=>x.orden===orden); if(!o) return;
+  ST.ordenActual=orden;
+  document.getElementById('detTitle').textContent='📋 Orden '+o.orden;
+  document.getElementById('detSub').textContent=(o.nombre||o.cliente||'')+(o.estadoAsignacion?' · Estado: '+o.estadoAsignacion:'');
+  document.getElementById('detInfo').innerHTML=[
+    {l:'Nombre',v:o.nombre||'—'},{l:'Cliente',v:o.cliente||'—'},
+    {l:'Dirección',v:(o.direccion||'—')+(o.barrio?' · '+o.barrio:'')},
+    {l:'Teléfono',v:o.telefono||'—'},
+    {l:'Tipo de trabajo',v:o.tipoTrabajo||'—'},{l:'Solicitud',v:o.solicitud||'—'},
+    {l:'F. Recibido BD',v:fmt(o.fechaRecibido)},{l:'Agente',v:o.agente||'Sin asignar'},
+    {l:'Resultado',v:o.resultado||'—'},{l:'Legalizada',v:o.legalizada||'No'},
+  ].map(f=>`<div class="detalle-field"><div class="fl">${f.l}</div><div class="val">${f.v}</div></div>`).join('');
+
+  const marcRows=[
+    o.marcIni?`<tr><td style="padding:7px 12px;font-size:12px;color:var(--gris)">Marcación Inicial</td><td style="padding:7px 12px;font-size:12px">${o.marcIni}</td><td style="padding:7px 12px;font-size:11px;font-family:monospace">${o.fechaMarcIni||''}</td></tr>`:'',
+    o.marc2?`<tr><td style="padding:7px 12px;font-size:12px;color:var(--gris)">Marcación 2</td><td style="padding:7px 12px;font-size:12px">${o.marc2}</td><td style="padding:7px 12px;font-size:11px;font-family:monospace">${o.fechaMarc2||''}</td></tr>`:'',
+    o.marc3?`<tr><td style="padding:7px 12px;font-size:12px;color:var(--gris)">Marcación 3</td><td style="padding:7px 12px;font-size:12px">${o.marc3}</td><td style="padding:7px 12px;font-size:11px;font-family:monospace">${o.fechaMarc3||''}</td></tr>`:'',
+  ].filter(Boolean).join('');
+  document.getElementById('detMarcaciones').innerHTML=marcRows||`<tr><td colspan="3" style="padding:12px;color:var(--gris);font-size:12px;text-align:center">Sin marcaciones registradas</td></tr>`;
+  openModal('modalDetalle');
+}
+
+function openMarcacionDesdeDetalle(){ closeModal('modalDetalle'); openMarcacion(ST.ordenActual); }
+
+// ═══════════════════════════════════════════════════
+// MARCACIONES
+// ═══════════════════════════════════════════════════
+function renderMarcaciones(){
+  const marc=[];
+  ST.ordenes.forEach(o=>{
+    if(o.marcIni) marc.push({orden:o.orden,cliente:o.nombre||o.cliente,campo:'Marcación Inicial',resultado:o.marcIni,fecha:o.fechaMarcIni});
+    if(o.marc2)   marc.push({orden:o.orden,cliente:o.nombre||o.cliente,campo:'Marcación 2',resultado:o.marc2,fecha:o.fechaMarc2});
+    if(o.marc3)   marc.push({orden:o.orden,cliente:o.nombre||o.cliente,campo:'Marcación 3',resultado:o.marc3,fecha:o.fechaMarc3});
+  });
+  const tb=document.getElementById('tbMarcaciones');
+  if(!marc.length){ tb.innerHTML=`<tr><td colspan="5"><div class="empty"><div class="empty-icon">📞</div><div class="empty-title">Sin marcaciones</div></div></td></tr>`; return; }
+  tb.innerHTML=marc.map(m=>`<tr>
+    <td><span class="mono">${m.orden}</span></td><td>${m.cliente||'—'}</td>
+    <td><span style="font-size:11px;font-weight:600;color:var(--gris)">${m.campo}</span></td>
+    <td>${badgeEstado(m.resultado?.includes('Agendado')?'Gestionado':m.resultado?.includes('No')||m.resultado?.includes('no')?'Fallido':'Pendiente')}
+        <div class="sub">${m.resultado||''}</div></td>
+    <td><span class="mono" style="font-size:11px">${m.fecha||'—'}</span></td>
+  </tr>`).join('');
+}
+
+function openMarcacion(orden){
+  document.getElementById('mOrden').value=orden||'';
+  if(orden){
+    const o=ST.ordenes.find(x=>x.orden===orden);
+    if(o){
+      const siguienteIntento=(!o.marcIni?1:!o.marc2?2:!o.marc3?3:3);
+      document.getElementById('mIntento').value=String(siguienteIntento);
+    }
+  }
+  openModal('modalMarcacion');
+}
+
+async function guardarMarcacion(){
+  const orden=document.getElementById('mOrden').value.trim();
+  const intento=parseInt(document.getElementById('mIntento').value);
+  const resultado=document.getElementById('mResultado').value;
+  const canal=document.getElementById('mCanal').value;
+  const obs=document.getElementById('mObs').value;
+  if(!orden){ toast('Ingresa el número de orden','err'); return; }
+
+  const o=ST.ordenes.find(x=>x.orden===orden);
+  if(!o){ toast('Orden no encontrada en la lista','err'); return; }
+
+  const fechaAhora=new Date().toISOString().slice(0,19).replace('T',' ');
+  // Campos según intento — mapeo exacto a SharePoint
+  const campoMap={1:{campo:'MarcacionInicial',fechaCampo:'FechaMarcIni'},2:{campo:'Marcacion2',fechaCampo:'FechaMarc2'},3:{campo:'Marcacion3',fechaCampo:'FechaMarc3'}};
+  const m=campoMap[intento]||campoMap[1];
+
+  const datos={
+    registroID: parseInt(o.id)||0,
+    [m.campo]:   resultado,
+    [m.fechaCampo]: fechaAhora,
+    resultado,
+    observacion: obs,
+    agenteResponsable: ST.usuario.nombre,
+    canal,
+    // Pasar todos los campos requeridos por UpdateRegApp (vacíos si no aplican)
+    marcacionInicial: intento===1?resultado:(o.marcIni||''),
+    marcacion2:       intento===2?resultado:(o.marc2||''),
+    marcacion3:       intento===3?resultado:(o.marc3||''),
+    fechaMarcIni:     intento===1?fechaAhora:(o.fechaMarcIni||''),
+    fechaMarc2:       intento===2?fechaAhora:(o.fechaMarc2||''),
+    fechaMarc3:       intento===3?fechaAhora:(o.fechaMarc3||''),
+    formulario:       o.formulario||'',
+    causalLegalizacion: o.causal||'',
+    comodato:         o.comodato||'',
+    facturacionElectronica: o.factElec||'',
+    legalizadaSiNo:   o.legalizada||'No',
+    idLlamada:        o.idLlamada||'',
+    tratamientoDatosPersonales: o.tratDatos||'',
+    estadoAsignacion: o.estadoAsignacion||'',
+  };
+
+  showLoad('Guardando marcación...');
+  try{
+    if(CFG.FLOW_UPDATE && !CFG.FLOW_UPDATE.includes('TU_URL')){
+      const r=await fetch(CFG.FLOW_UPDATE,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(datos)});
+      if(!r.ok) throw new Error('Error en flow: '+r.status);
+    }
+    // Actualizar estado local
+    if(intento===1){ o.marcIni=resultado; o.fechaMarcIni=fechaAhora; }
+    else if(intento===2){ o.marc2=resultado; o.fechaMarc2=fechaAhora; }
+    else { o.marc3=resultado; o.fechaMarc3=fechaAhora; }
+    closeModal('modalMarcacion');
+    renderOrdenes(); updateStats();
+    toast('Marcación guardada','ok');
+  }catch(e){ toast('Error guardando marcación','err'); }
+  hideLoad();
+}
+
+// ═══════════════════════════════════════════════════
+// IVR
+// ═══════════════════════════════════════════════════
+function openIVR(){ document.getElementById('iOrden').value=''; document.getElementById('iNombre').value=''; document.getElementById('iTel').value=''; document.getElementById('iDir').value=''; document.getElementById('iObs').value=''; openModal('modalIVR'); }
+
+function renderIVR(){
+  const tb=document.getElementById('tbIVR');
+  if(!ST.ivrRecords.length){ tb.innerHTML=`<tr><td colspan="6"><div class="empty"><div class="empty-icon">📠</div><div class="empty-title">Sin registros IVR</div></div></td></tr>`; return; }
+  tb.innerHTML=ST.ivrRecords.map(r=>`<tr><td><span class="mono">${r.orden||'—'}</span></td><td>${r.nombre}</td><td><span class="mono" style="font-size:12px">${r.tel}</span></td><td>${r.motivo}</td><td>${r.creadoPor}</td><td><span class="mono" style="font-size:11px">${r.fecha}</span></td></tr>`).join('');
+}
+
+async function guardarIVR(){
+  const nombre=document.getElementById('iNombre').value.trim();
+  const tel=document.getElementById('iTel').value.trim();
+  if(!nombre||!tel){ toast('Nombre y teléfono son requeridos','err'); return; }
+  const orden=document.getElementById('iOrden').value.trim();
+  // Validar duplicado
+  if(orden && ST.ordenes.find(o=>o.orden===orden)){ toast('Ya existe un registro con esa orden','err'); return; }
+  const datos={
+    Title: orden||('IVR-'+Date.now()),
+    Nombre: nombre, Telefono: tel,
+    Direccion: document.getElementById('iDir').value,
+    Solicitud: document.getElementById('iMotivo').value,
+    AgenteResponsable: ST.usuario.nombre,
+    EstadoAsignacion: 'SI',
+    Observacion: document.getElementById('iObs').value,
+  };
+  showLoad('Creando registro IVR...');
+  try{
+    if(CFG.FLOW_CREAR && !CFG.FLOW_CREAR.includes('TU_URL')){
+      const r=await fetch(CFG.FLOW_CREAR,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(datos)});
+      if(!r.ok) throw new Error('Error en flow');
+    }
+    ST.ivrRecords.unshift({orden:datos.Title,nombre,tel,motivo:datos.Solicitud,creadoPor:ST.usuario.nombre,fecha:new Date().toISOString().slice(0,16).replace('T',' ')});
+    closeModal('modalIVR'); renderIVR();
+    toast('Registro IVR creado','ok');
+  }catch(e){ toast('Error creando registro IVR','err'); }
+  hideLoad();
+}
+
+// ═══════════════════════════════════════════════════
+// ASIGNACIÓN MASIVA
+// ═══════════════════════════════════════════════════
+let ausentes=new Set();
+
+function renderAsignacion(){
+  const sinAsignar=ST.ordenes.filter(o=>!o.agente||o.estadoAsignacion!=='SI');
+  document.getElementById('countSinAsignar').textContent=sinAsignar.length;
+
+  // Agentes activos
+  const agentes=USUARIOS.filter(u=>u.rol==='Agente'&&u.activo==='SI');
+  const cargaActual={};
+  ST.ordenes.forEach(o=>{ if(o.agente){ cargaActual[o.agente]=(cargaActual[o.agente]||0)+1; } });
+
+  document.getElementById('agentesGrid').innerHTML=agentes.map(a=>{
+    const estaAusente=ausentes.has(a.nombre);
+    return `<div class="agente-card${estaAusente?' ausente':''}" id="card-${a.u}" onclick="selAgente('${a.nombre}')">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between">
+        <div>
+          <div class="agente-nombre">${a.nombre}</div>
+          <div class="agente-carga">Carga actual: <strong>${cargaActual[a.nombre]||0}</strong> órdenes</div>
+        </div>
+        <div class="agente-count">${cargaActual[a.nombre]||0}</div>
+      </div>
+      <div class="ausente-toggle" onclick="event.stopPropagation();toggleAusente('${a.nombre}',this)">
+        <input type="checkbox" class="chk" ${estaAusente?'checked':''} onclick="event.stopPropagation()">
+        <span>Marcar como ausente</span>
+      </div>
+    </div>`;
+  }).join('');
+
+  const tb=document.getElementById('tbSinAsignar');
+  if(!sinAsignar.length){ tb.innerHTML=`<tr><td colspan="5"><div class="empty"><div class="empty-icon">✅</div><div class="empty-title">Todas las órdenes están asignadas</div></div></td></tr>`; return; }
+  tb.innerHTML=sinAsignar.map(o=>`<tr>
+    <td><span class="mono">${o.orden}</span></td>
+    <td>${o.nombre||o.cliente||'—'}</td>
+    <td><span style="font-size:12px">${o.direccion||'—'}</span></td>
+    <td><span class="mono" style="font-size:12px">${o.telefono||'—'}</span></td>
+    <td>${fmt(o.fechaRecibido)}</td>
+  </tr>`).join('');
+}
+
+function toggleAusente(nombre, el){
+  if(ausentes.has(nombre)) ausentes.delete(nombre);
+  else ausentes.add(nombre);
+  renderAsignacion();
+}
+
+async function ejecutarAsignacion(){
+  const sinAsignar=ST.ordenes.filter(o=>!o.agente||o.estadoAsignacion!=='SI');
+  if(!sinAsignar.length){ toast('No hay órdenes sin asignar',''); return; }
+  const agentesDisp=USUARIOS.filter(u=>u.rol==='Agente'&&u.activo==='SI'&&!ausentes.has(u.nombre));
+  if(!agentesDisp.length){ toast('Selecciona al menos un agente activo','err'); return; }
+
+  showLoad(`Asignando ${sinAsignar.length} órdenes entre ${agentesDisp.length} agentes...`);
+  try{
+    // Distribución equitativa round-robin
+    const asignaciones=[];
+    sinAsignar.forEach((o,i)=>{
+      const agente=agentesDisp[i%agentesDisp.length];
+      asignaciones.push({orden:o.orden, id:o.id, agente:agente.nombre});
+    });
+
+    if(CFG.FLOW_UPDATE && !CFG.FLOW_UPDATE.includes('TU_URL')){
+      // Llamar el flow por cada asignación
+      for(const a of asignaciones){
+        const o=ST.ordenes.find(x=>x.orden===a.orden);
+        await fetch(CFG.FLOW_UPDATE,{method:'POST',headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({
+            registroID: parseInt(a.id)||0,
+            agenteResponsable: a.agente,
+            estadoAsignacion: 'SI',
+            marcacionInicial: o?.marcIni||'', marcacion2: o?.marc2||'', marcacion3: o?.marc3||'',
+            fechaMarcIni: o?.fechaMarcIni||'', fechaMarc2: o?.fechaMarc2||'', fechaMarc3: o?.fechaMarc3||'',
+            resultado: o?.resultado||'', formulario: o?.formulario||'', causalLegalizacion: o?.causal||'',
+            comodato: o?.comodato||'', facturacionElectronica: o?.factElec||'', legalizadaSiNo: o?.legalizada||'No',
+            idLlamada: o?.idLlamada||'', tratamientoDatosPersonales: o?.tratDatos||'',
+          })});
+      }
+    }
+    // Actualizar local
+    asignaciones.forEach(a=>{ const o=ST.ordenes.find(x=>x.orden===a.orden); if(o){ o.agente=a.agente; o.estadoAsignacion='SI'; } });
+    renderAsignacion(); updateStats();
+    toast(`${asignaciones.length} órdenes asignadas exitosamente`,'ok');
+  }catch(e){ toast('Error durante la asignación','err'); }
+  hideLoad();
+}
+
+// ═══════════════════════════════════════════════════
+// INFORMES
+// ═══════════════════════════════════════════════════
+function renderInformes(){
+  const vis=ST.ordenes.filter(o=>o.agente);
+  const total=vis.length;
+  const marc=vis.reduce((a,o)=>{
+    if(o.marcIni) a.push(o.marcIni);
+    if(o.marc2)   a.push(o.marc2);
+    if(o.marc3)   a.push(o.marc3);
+    return a;
+  },[]);
+  const contactados=vis.filter(o=>[o.marcIni,o.marc2,o.marc3].some(m=>m?.includes('Agendado'))).length;
+  const fallidos=vis.filter(o=>estadoOrden(o)==='Fallido').length;
+  const tasa=total?Math.round((contactados/total)*100):0;
+  const promIntentos=total?(marc.length/total).toFixed(1):0;
+
+  document.getElementById('rTotal').textContent=total;
+  document.getElementById('rContacto').textContent=tasa+'%';
+  document.getElementById('rIntentos').textContent=promIntentos;
+  document.getElementById('rFallidos').textContent=fallidos;
+
+  // Tabla resultados
+  const conteo={};
+  marc.forEach(m=>{ conteo[m]=(conteo[m]||0)+1; });
+  const totalMar=marc.length||1;
+  document.getElementById('tbResultados').innerHTML=Object.entries(conteo).sort((a,b)=>b[1]-a[1]).map(([r,n])=>`
+    <tr><td style="font-size:13px">${r}</td><td style="font-weight:700">${n}</td><td style="font-size:12px;color:var(--gris)">${Math.round((n/totalMar)*100)}%</td></tr>`).join('')||'<tr><td colspan="3" style="text-align:center;color:var(--gris);font-size:13px;padding:20px">Sin datos aún</td></tr>';
+
+  // Tabla por agente
+  const porAgente={};
+  vis.forEach(o=>{ if(o.agente){ if(!porAgente[o.agente]) porAgente[o.agente]={total:0,contact:0}; porAgente[o.agente].total++; if(estadoOrden(o)==='Gestionado') porAgente[o.agente].contact++; } });
+  document.getElementById('tbAgentes').innerHTML=Object.entries(porAgente).sort((a,b)=>b[1].total-a[1].total).map(([ag,d])=>`
+    <tr><td style="font-size:12px">${ag}</td><td style="font-weight:700">${d.total}</td><td style="color:var(--ok);font-weight:600">${d.contact}</td></tr>`).join('')||'<tr><td colspan="3" style="text-align:center;color:var(--gris);font-size:13px;padding:20px">Sin datos aún</td></tr>';
+}
+
+// ═══════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════
+document.getElementById('loginPin').addEventListener('keydown',e=>{ if(e.key==='Enter') doLogin(); });
+document.getElementById('loginUser').addEventListener('keydown',e=>{ if(e.key==='Enter') document.getElementById('loginPin').focus(); });
+</script>
+</body>
+</html>
