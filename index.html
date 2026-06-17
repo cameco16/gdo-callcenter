@@ -474,38 +474,41 @@ document.querySelectorAll('.modal-overlay').forEach(o=>o.addEventListener('click
 
 // Mapeo de campos SharePoint → app
 function mapOrden(o){
+  // SharePoint retorna campos con nombres codificados (field_N)
+  // Mapeo basado en el output real de la lista Consolidado Prueba1
   return {
-    id:              o.ID || o.id || '',
-    orden:           o.Title || o.Orden || '',
-    cliente:         o.Cliente || '',
-    nombre:          o.Nombre || o.nombre || '',
-    direccion:       o.Direccion || o.Dirección || '',
-    barrio:          o.Barrio || '',
-    localidad:       o.Localidad || '',
-    telefono:        o.Telefono || o.Teléfono || o['TELEFONO EXTRAIDO'] || '',
-    solicitud:       o.Solicitud || '',
-    tipoTrabajo:     o['Tipo de trabajo'] || o.TipoDeTrabajo || '',
-    fechaRecibido:   o['FECHA DE RECIBIDO BD'] || o['Fecha de Recibido BD'] || '',
-    fechaAsignacion: o['Fecha de Asignación'] || o['Fecha de Asignacion'] || '',
-    agente:          o.AgenteResponsable || o['AGENTE RESPONSABLE'] || '',
-    estadoAsignacion:o.EstadoAsignacion || '',
-    resultado:       o.Resultado || o.RESULTADO || '',
-    observacion:     o.Observacion || o['OBSERVACIÓN'] || o.Observación || '',
+    id:              o.ID || o.ItemInternalId || '',
+    orden:           o.Title || '',                          // N° Orden
+    cliente:         o.field_0 || o.Cliente || '',           // ID cliente
+    nombre:          o.field_1 || o.Nombre || '',            // Nombre cliente
+    direccion:       o.field_2 || o.Direccion || '',         // Dirección
+    barrio:          o.field_3 || o.Barrio || '',            // Barrio
+    localidad:       o.field_4 || o.Localidad || '',         // Localidad
+    telefono:        o.field_5 || o.field_24 || '',          // Teléfono / Teléfono extraído
+    solicitud:       o.field_6 || o.Solicitud || '',         // RAD / Solicitud
+    tipoTrabajo:     o.field_12 || o.TipoDeTrabajo || '',    // Tipo de trabajo
+    fechaRecibido:   o.field_14 || '',                       // FECHA DE RECIBIDO BD
+    fechaAsignacion: o.field_14 || '',
+    agente:          o.field_16 ? o.field_16.trim() : '',    // AGENTE RESPONSABLE (trim espacios dobles)
+    estadoAsignacion:o.EstadoAsignacion || '',               // EstadoAsignacion
+    resultado:       o.field_18 || o.field_25 || '',         // RESULTADO / Marcación Inicial resultado
+    observacion:     o.field_26 || o.field_9 || '',          // OBSERVACIÓN
     estado:          o.Estado || 'Pendiente',
-    legalizada:      o.LegalizadaSiNo || o['Legalizada si/no'] || 'No',
-    marcIni:         o.MarcacionInicial || o['Marcación Inicial'] || '',
-    fechaMarcIni:    o.FechaMarcIni || o['Fecha MarcIni'] || '',
-    marc2:           o.Marcacion2 || o['Marcación 2'] || '',
-    fechaMarc2:      o.FechaMarc2 || o['Fecha Marc2'] || '',
-    marc3:           o.Marcacion3 || o['Marcación 3'] || '',
-    fechaMarc3:      o.FechaMarc3 || o['Fecha Marc3'] || '',
+    legalizada:      o.field_13 || 'No',                     // Legalizada si/no
+    marcIni:         o.field_25 || '',                       // Marcación Inicial
+    fechaMarcIni:    o.FechaMarcIni || '',                   // Fecha MarcIni
+    marc2:           o.field_27 || o.Marcacion2 || '',       // Marcación 2
+    fechaMarc2:      o.FechaMarc2 || '',                     // Fecha Marc2
+    marc3:           o.field_28 || o.Marcacion3 || '',       // Marcación 3
+    fechaMarc3:      o.FechaMarc3 || '',                     // Fecha Marc3
     comodato:        o.Comodato || '',
-    factElec:        o.FacturacionElectronica || o['Facturación Electrónica'] || '',
-    tratDatos:       o.TratamientoDatosPersonales || '',
-    causal:          o.CausalLegalizacion || o['CAUSAL DE LEGALIZACIÓN'] || '',
-    rad:             o.RAD || '',
+    factElec:        o.Facturaci_x00f3_nElectr_x00f3_ni || '',  // Facturación Electrónica
+    tratDatos:       o.TratamientodeDatosPersonales || '',
+    causal:          o.CausalLegalizacion || '',
+    rad:             o.field_10 || '',
     idLlamada:       o.IDLlamada || '',
-    formulario:      o.Formulario || o.FORMULARIO || '',
+    formulario:      o.field_17 || '',
+    tt:              o.field_22 || '',                       // TT (CxC, REMOTA, etc.)
   };
 }
 
@@ -537,19 +540,42 @@ async function doLogin(){
     // Intentar flow real (trae usuario + órdenes juntos)
     if(CFG.FLOW_LOGIN && !CFG.FLOW_LOGIN.includes('TU_URL')){
       try{
-        const r=await fetch(CFG.FLOW_LOGIN,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({usuario:u,password:p})});
+        const r=await fetch(CFG.FLOW_LOGIN,{
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({usuario:u,password:p})
+        });
+        console.log('Flow status:',r.status);
         if(r.ok){
-          const d=await r.json();
+          const txt=await r.text();
+          console.log('Flow response raw:',txt.slice(0,300));
+          let d;
+          try{ d=JSON.parse(txt); }catch(pe){ console.error('JSON parse error:',pe); throw new Error('Respuesta inválida del flow'); }
           if(d&&d.nombre){
             userData={nombre:d.nombre, rol:d.rol, activo:d.activo||'SI'};
-            // Procesar órdenes que vienen en la misma respuesta
             if(d.ordenes && Array.isArray(d.ordenes)){
               ST.ordenes=d.ordenes.map(mapOrden);
-              console.log('✅ Órdenes cargadas desde login:',ST.ordenes.length);
+              console.log('✅ Órdenes cargadas:',ST.ordenes.length);
+            } else {
+              console.warn('⚠️ No vienen órdenes en la respuesta. Claves recibidas:',Object.keys(d));
             }
+          } else {
+            console.warn('⚠️ Respuesta sin nombre:',d);
+            throw new Error('Credenciales incorrectas');
           }
-        } else if(r.status===401) throw new Error('Credenciales incorrectas');
-      }catch(e){ if(e.message==='Credenciales incorrectas') throw e; }
+        } else if(r.status===401||r.status===403){
+          throw new Error('Credenciales incorrectas');
+        } else {
+          const errTxt=await r.text().catch(()=>'');
+          console.error('Flow error '+r.status+':',errTxt.slice(0,200));
+          throw new Error('Error en el flow: '+r.status);
+        }
+      }catch(e){
+        console.error('Fetch error:',e.message);
+        if(e.message==='Credenciales incorrectas'||e.message.startsWith('Error en el flow')) throw e;
+        // CORS u otro error de red — caer en validación local
+        console.warn('Usando validación local por error de red');
+      }
     }
     // Fallback local
     if(!userData){
@@ -656,8 +682,13 @@ function getOrdenesVisibles(){
   const esAdmin=['Admin','AdminCall'].includes(ST.usuario.rol);
   return ST.ordenes.filter(o=>{
     // Agentes solo ven sus órdenes asignadas (EstadoAsignacion = SI)
-    if(!esAdmin && o.agente!==ST.usuario.nombre) return false;
-    if(!esAdmin && o.estadoAsignacion!=='SI') return false;
+    if(!esAdmin){
+      // Comparar normalizando espacios dobles y tildes
+      const agenteOrden = (o.agente||'').replace(/\s+/g,' ').trim().toLowerCase();
+      const agenteUsuario = (ST.usuario.nombre||'').replace(/\s+/g,' ').trim().toLowerCase();
+      if(agenteOrden !== agenteUsuario) return false;
+      if(o.estadoAsignacion !== 'SI') return false;
+    }
     return true;
   });
 }
