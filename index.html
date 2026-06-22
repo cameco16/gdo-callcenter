@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.powerplatform.com https://*.logic.azure.com; connect-src *; font-src *; style-src 'unsafe-inline' *; img-src * data:;">
-<title>GDO Call Center</title>
+<title>IMPULSA 360</title>
 <style>
 :root {
   --azul:#0F3460; --azul-m:#16537e; --acento:#00B4D8; --acento-s:#90E0EF;
@@ -194,6 +194,66 @@ td{padding:11px 14px;font-size:13px}
 .skel{display:inline-block;height:12px;border-radius:6px;background:linear-gradient(90deg,#eef2f6 25%,#dde5ec 37%,#eef2f6 63%);background-size:400% 100%;animation:shimmer 1.3s ease infinite;vertical-align:middle}
 @keyframes shimmer{0%{background-position:100% 0}100%{background-position:-100% 0}}
 .btn[disabled]{opacity:.5;cursor:default;pointer-events:none}
+
+/* TARJETAS COMO FILTRO */
+.stat-card.clickable{cursor:pointer;transition:transform .12s,box-shadow .12s;user-select:none}
+.stat-card.clickable:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,.10)}
+.stat-card.active{outline:2px solid var(--acento);outline-offset:1px}
+/* ENCABEZADOS ORDENABLES */
+th[onclick]{cursor:pointer;user-select:none;white-space:nowrap}
+th[onclick]:hover{color:var(--azul)}
+.sort-ind{font-size:9px;color:var(--acento);margin-left:2px}
+
+/* PORTAL */
+.portal-hero{background:linear-gradient(135deg,var(--azul),var(--azul-m));color:#fff;border-radius:var(--r);padding:26px 28px;margin-bottom:22px;box-shadow:var(--sombra)}
+.portal-hero h2{font-size:22px;font-weight:700;margin-bottom:4px}
+.portal-hero p{font-size:13px;opacity:.85}
+.portal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
+.portal-card{background:#fff;border-radius:var(--r);padding:22px;box-shadow:var(--sombra);cursor:pointer;border:1px solid var(--gris-c);transition:transform .12s,box-shadow .12s,border-color .12s;display:flex;flex-direction:column;gap:10px}
+.portal-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(15,52,96,.14);border-color:var(--acento-s)}
+.portal-ic{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;background:var(--fondo)}
+.portal-card h3{font-size:15px;font-weight:700;color:var(--azul)}
+.portal-card p{font-size:12px;color:var(--gris);line-height:1.4}
+.portal-go{margin-top:auto;font-size:12px;font-weight:600;color:var(--acento)}
+
+/* CONSTRUCTORAS */
+.ct-tabs{display:inline-flex;background:#fff;border:1px solid var(--gris-c);border-radius:10px;padding:4px;gap:4px;margin-bottom:20px}
+.ct-tab{padding:8px 20px;border:none;background:transparent;border-radius:7px;font-size:13px;font-weight:600;font-family:inherit;color:var(--gris);cursor:pointer}
+.ct-tab.active{background:var(--azul);color:#fff}
+.ct-prog{display:flex;align-items:center;gap:8px}
+.ct-prog-track{flex:1;min-width:64px;height:16px;background:var(--gris-c);border-radius:6px;overflow:hidden}
+.ct-prog-fill{height:100%;border-radius:6px}
+.ct-hbars{display:flex;flex-direction:column;gap:11px;padding:4px 0}
+.ct-hrow{display:flex;align-items:center;gap:10px}
+.ct-hlabel{width:130px;font-size:11.5px;color:var(--texto);text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ct-htrack{flex:1;height:20px;background:var(--gris-c);border-radius:6px;overflow:hidden}
+.ct-hfill{height:100%;border-radius:6px;transition:width .4s}
+.ct-hval{width:38px;text-align:right;font-size:12px;font-weight:700;color:var(--azul);font-family:'Cascadia Code','Consolas',monospace}
+.ct-legend{display:flex;flex-direction:column;gap:8px}
+.ct-legend-item{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--texto)}
+.ct-dot{width:9px;height:9px;border-radius:50%;flex:none}
+.ct-sem{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:12px}
+
+/* PORTAL 3 CARDS */
+.portal-top{display:flex;justify-content:space-between;align-items:center;gap:16px;background:linear-gradient(135deg,#003366,#00284f);color:#fff;border-radius:var(--r);padding:24px 28px;margin-bottom:22px;box-shadow:var(--sombra);flex-wrap:wrap}
+.portal-brand{display:flex;align-items:center;gap:16px}
+.portal-logo{width:50px;height:50px;border-radius:12px;background:#4fc3f7;color:#00284f;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;flex:none}
+.portal-plat{font-size:19px;font-weight:700}
+.portal-subt{font-size:12.5px;color:#9ecbe6;margin-top:2px}
+.portal-user2{text-align:right}
+.portal-user2 .n{font-size:14px;font-weight:600}
+.portal-user2 .r{font-size:12px;color:#9ecbe6}
+.portal-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.portal-card3{background:#fff;border-radius:14px;padding:26px 24px;box-shadow:var(--sombra);border-top:4px solid var(--ac);cursor:pointer;transition:transform .12s,box-shadow .12s;display:flex;flex-direction:column;gap:12px}
+.portal-card3:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(15,52,96,.16)}
+.pc-ic{width:58px;height:58px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:28px;background:var(--fondo)}
+.pc-title{font-size:17px;font-weight:700;color:var(--ac)}
+.pc-desc{font-size:13px;color:var(--gris);line-height:1.5;flex:1}
+.pc-status{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:var(--ok)}
+.pc-dot{width:8px;height:8px;border-radius:50%;background:var(--ok)}
+.pc-btn{margin-top:2px;padding:10px;border:none;background:var(--ac);color:#fff;border-radius:9px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer}
+.portal-foot{margin-top:26px;text-align:center;font-size:12px;color:var(--gris);font-family:'Cascadia Code','Consolas',monospace;text-transform:capitalize}
+.inf-sec{font-size:13px;font-weight:700;color:var(--azul);text-transform:uppercase;letter-spacing:.5px;margin:6px 0 12px;display:flex;align-items:center;gap:8px}
 </style>
 </head>
 <body>
@@ -202,10 +262,10 @@ td{padding:11px 14px;font-size:13px}
 <div id="loginScreen">
   <div class="login-card">
     <div class="login-logo">
-      <div class="login-logo-icon">📞</div>
+      <div class="login-logo-icon"><svg viewBox="0 0 24 24" style="width:28px;height:28px;fill:none;stroke:white;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.5-1 1-4c2 1 3 2 4 4z"/><path d="M12 15v5c3-1 4-2 4-5h-4z"/></svg></div>
       <div>
-        <div class="login-logo-text">GDO Call Center</div>
-        <div class="login-logo-sub">Gases de Occidente</div>
+        <div class="login-logo-text">IMPULSA 360</div>
+        <div class="login-logo-sub">Plataforma de Inteligencia Comercial</div>
       </div>
     </div>
     <div class="login-title">Bienvenido</div>
@@ -222,28 +282,32 @@ td{padding:11px 14px;font-size:13px}
   <div class="sidebar">
     <div class="sidebar-header">
       <div class="s-logo">
-        <div class="s-logo-icon">📞</div>
-        <div><div class="s-logo-text">GDO Call Center</div><div class="s-logo-sub">Gases de Occidente</div></div>
+        <div class="s-logo-icon"><svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:none;stroke:white;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.5-1 1-4c2 1 3 2 4 4z"/><path d="M12 15v5c3-1 4-2 4-5h-4z"/></svg></div>
+        <div><div class="s-logo-text">IMPULSA 360</div><div class="s-logo-sub">Plataforma de Inteligencia Comercial</div></div>
       </div>
     </div>
     <div class="user-badge">
       <div class="user-badge-name" id="sidebarName">—</div>
       <div class="user-badge-role" id="sidebarRole">—</div>
     </div>
-    <div class="nav-sec">Principal</div>
-    <div class="nav-item active" onclick="nav('ordenes',this)"><span class="nav-icon">📋</span>Mis Órdenes<span class="nav-badge" id="badgePend">0</span></div>
-    <div class="nav-item" onclick="nav('marcaciones',this)"><span class="nav-icon">📞</span>Marcaciones</div>
-    <div class="nav-item" onclick="nav('ivr',this)"><span class="nav-icon">📠</span>IVR</div>
-    <div class="nav-sec admin-only" style="display:none">Administración</div>
-    <div class="nav-item admin-only" style="display:none" onclick="nav('asignacion',this)"><span class="nav-icon">🔄</span>Asignación</div>
-    <div class="nav-sec">Reportes</div>
-    <div class="nav-item" onclick="nav('informes',this)"><span class="nav-icon">📊</span>Informes</div>
+    <div class="nav-sec">Inicio</div>
+    <div class="nav-item active" data-nav="portal" onclick="nav('portal',this)"><span class="nav-icon">🏠</span>Portal</div>
+    <div class="nav-sec">Call Center</div>
+    <div class="nav-item" data-nav="callcenter" onclick="ccNav('ordenes',this)"><span class="nav-icon">📋</span>Mis Órdenes<span class="nav-badge" id="badgePend">0</span></div>
+    <div class="nav-item" onclick="ccNav('marcaciones',this)"><span class="nav-icon">📞</span>Marcaciones</div>
+    <div class="nav-item" onclick="ccNav('ivr',this)"><span class="nav-icon">📠</span>IVR</div>
+    <div class="nav-item admin-only" style="display:none" onclick="ccNav('asignacion',this)"><span class="nav-icon">🔄</span>Asignación</div>
+    <div class="nav-item" onclick="ccNav('informes',this)"><span class="nav-icon">📊</span>Informes</div>
+    <div class="nav-sec">Constructoras</div>
+    <div class="nav-item" data-nav="constructoras" onclick="nav('constructoras',this)"><span class="nav-icon">🏗️</span>Proyectos</div>
+    <div class="nav-sec">Análisis</div>
+    <div class="nav-item" data-nav="informesEjec" onclick="nav('informesEjec',this)"><span class="nav-icon">📊</span>Informes Ejecutivos</div>
     <div class="sidebar-footer"><button class="btn-logout" onclick="doLogout()">← Cerrar sesión</button></div>
   </div>
 
   <div class="main-content">
     <div class="topbar">
-      <div><div class="topbar-title" id="topbarTitle">Mis Órdenes</div><div class="topbar-sub" id="topbarSub">Órdenes asignadas pendientes de gestión</div></div>
+      <div><div class="topbar-title" id="topbarTitle">Portal</div><div class="topbar-sub" id="topbarSub">Selecciona un módulo para comenzar</div></div>
       <div class="topbar-right">
         <div class="topbar-fresh" id="topbarFresh"></div>
         <div class="topbar-date" id="topbarDate"></div>
@@ -254,13 +318,63 @@ td{padding:11px 14px;font-size:13px}
     <div class="page">
       <div class="cache-banner" id="cacheBanner"><span>⚡</span><span id="cacheBannerTxt">Mostrando datos guardados. Sincronizando con el servidor…</span></div>
 
-      <!-- ÓRDENES -->
-      <div class="screen active" id="screen-ordenes">
+      <!-- PORTAL -->
+      <div class="screen active" id="screen-portal">
+        <div class="portal-top">
+          <div class="portal-brand">
+            <div class="portal-logo"><svg viewBox="0 0 24 24" style="width:32px;height:32px;fill:none;stroke:#00284f;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.5-1 1-4c2 1 3 2 4 4z"/><path d="M12 15v5c3-1 4-2 4-5h-4z"/></svg></div>
+            <div>
+              <div class="portal-plat">IMPULSA 360</div>
+              <div class="portal-subt">Plataforma de Inteligencia Comercial</div>
+            </div>
+          </div>
+          <div class="portal-user2">
+            <div class="n" id="portalUserName">—</div>
+            <div class="r" id="portalUserRole">—</div>
+          </div>
+        </div>
+        <div class="portal-cards">
+          <div class="portal-card3" style="--ac:#003366" onclick="irCallCenter()">
+            <div class="pc-ic">📞</div>
+            <div class="pc-title">Gestión Call Center</div>
+            <div class="pc-desc">Seguimiento de agentes, ventas por asesor y gestión de potenciales</div>
+            <div class="pc-status"><span class="pc-dot"></span>Activo</div>
+            <button class="pc-btn">Ingresar →</button>
+          </div>
+          <div class="portal-card3" style="--ac:#005599" onclick="navTo('constructoras')">
+            <div class="pc-ic">🏗️</div>
+            <div class="pc-title">Proyectos Constructoras</div>
+            <div class="pc-desc">Trazabilidad de proyectos, legalizaciones y seguimiento por ejecutivo</div>
+            <div class="pc-status"><span class="pc-dot"></span>Activo</div>
+            <button class="pc-btn">Ingresar →</button>
+          </div>
+          <div class="portal-card3" style="--ac:#16a34a" onclick="navTo('informesEjec')">
+            <div class="pc-ic">📊</div>
+            <div class="pc-title">Informes Ejecutivos</div>
+            <div class="pc-desc">Dashboard 360° con indicadores de ventas, conexiones, anulaciones y alertas</div>
+            <div class="pc-status"><span class="pc-dot"></span>Activo</div>
+            <button class="pc-btn">Ingresar →</button>
+          </div>
+        </div>
+        <div class="portal-foot"><span id="portalClock"></span></div>
+      </div>
+
+      <!-- CALL CENTER -->
+      <div class="screen" id="screen-callcenter">
+        <div class="ct-tabs">
+          <button class="ct-tab active" id="ccTabOrdenes" onclick="ccSetTab('ordenes')">📋 Mis Órdenes</button>
+          <button class="ct-tab" id="ccTabMarc" onclick="ccSetTab('marcaciones')">📞 Marcaciones</button>
+          <button class="ct-tab" id="ccTabIvr" onclick="ccSetTab('ivr')">📠 IVR</button>
+          <button class="ct-tab admin-only" style="display:none" id="ccTabAsig" onclick="ccSetTab('asignacion')">🔄 Asignación</button>
+          <button class="ct-tab" id="ccTabInf" onclick="ccSetTab('informes')">📊 Informes</button>
+        </div>
+        <!-- ÓRDENES -->
+      <div class="cc-view" id="ccOrdenesView">
         <div class="stats-grid">
-          <div class="stat-card blue"><div class="stat-label">Total asignadas</div><div class="stat-value" id="sTotal">0</div><div class="stat-sub">En gestión</div></div>
-          <div class="stat-card amber"><div class="stat-label">Sin contacto</div><div class="stat-value" id="sPend">0</div><div class="stat-sub">Pendientes</div></div>
-          <div class="stat-card green"><div class="stat-label">Contactadas</div><div class="stat-value" id="sGest">0</div><div class="stat-sub">Con marcación</div></div>
-          <div class="stat-card red"><div class="stat-label">Sin éxito</div><div class="stat-value" id="sVenc">0</div><div class="stat-sub">3 intentos fallidos</div></div>
+          <div class="stat-card blue clickable active" id="cardTotal" onclick="setCardFilter(null)"><div class="stat-label">Total asignadas</div><div class="stat-value" id="sTotal">0</div><div class="stat-sub">En gestión</div></div>
+          <div class="stat-card amber clickable" id="cardPend" onclick="setCardFilter('sincontacto')"><div class="stat-label">Sin contacto</div><div class="stat-value" id="sPend">0</div><div class="stat-sub">No se logró contacto</div></div>
+          <div class="stat-card green clickable" id="cardGest" onclick="setCardFilter('contactada')"><div class="stat-label">Contactadas</div><div class="stat-value" id="sGest">0</div><div class="stat-sub">Volver a llamar</div></div>
+          <div class="stat-card red clickable" id="cardSin" onclick="setCardFilter('sinexito')"><div class="stat-label">Sin éxito</div><div class="stat-value" id="sVenc">0</div><div class="stat-sub">Cerradas sin venta</div></div>
         </div>
         <div class="card">
           <div class="card-header"><div class="card-title">Mis órdenes</div><button class="btn btn-ac btn-sm" onclick="openMarcacion(null)">+ Marcación</button></div>
@@ -273,13 +387,23 @@ td{padding:11px 14px;font-size:13px}
               <option value="Fallido">Fallido</option>
             </select>
           </div>
-          <table><thead><tr><th>Orden</th><th>Cliente</th><th>Dirección</th><th>Teléfono</th><th>F. Recibido</th><th>Marcaciones</th><th>Estado</th><th>Acciones</th></tr></thead>
+          <table id="tblOrdenes"><thead><tr>
+            <th onclick="sortOrdenes('orden')">Orden <span class="sort-ind" data-k="orden"></span></th>
+            <th onclick="sortOrdenes('cliente')">Cliente <span class="sort-ind" data-k="cliente"></span></th>
+            <th onclick="sortOrdenes('direccion')">Dirección <span class="sort-ind" data-k="direccion"></span></th>
+            <th onclick="sortOrdenes('telefono')">Teléfono <span class="sort-ind" data-k="telefono"></span></th>
+            <th onclick="sortOrdenes('fechaRecibido')">F. Recibido <span class="sort-ind" data-k="fechaRecibido"></span></th>
+            <th onclick="sortOrdenes('marcaciones')">Marcaciones <span class="sort-ind" data-k="marcaciones"></span></th>
+            <th onclick="sortOrdenes('resultado')">Resultado <span class="sort-ind" data-k="resultado"></span></th>
+            <th onclick="sortOrdenes('estado')">Estado <span class="sort-ind" data-k="estado"></span></th>
+            <th>Acciones</th>
+          </tr></thead>
           <tbody id="tbOrdenes"></tbody></table>
         </div>
       </div>
 
       <!-- MARCACIONES -->
-      <div class="screen" id="screen-marcaciones">
+      <div class="cc-view" id="ccMarcacionesView" style="display:none">
         <div class="card">
           <div class="card-header"><div class="card-title">Historial de marcaciones</div><button class="btn btn-ac btn-sm" onclick="openMarcacion(null)">+ Registrar</button></div>
           <table><thead><tr><th>Orden</th><th>Cliente</th><th>Campo</th><th>Resultado</th><th>Fecha / Hora</th></tr></thead>
@@ -288,7 +412,7 @@ td{padding:11px 14px;font-size:13px}
       </div>
 
       <!-- IVR -->
-      <div class="screen" id="screen-ivr">
+      <div class="cc-view" id="ccIvrView" style="display:none">
         <div class="card" style="margin-bottom:20px;background:linear-gradient(135deg,var(--azul),var(--azul-m));color:#fff;border-radius:var(--r)">
           <div style="padding:20px 24px;display:flex;align-items:center;gap:16px">
             <div style="font-size:32px">📠</div>
@@ -304,7 +428,7 @@ td{padding:11px 14px;font-size:13px}
       </div>
 
       <!-- ASIGNACIÓN (admin) -->
-      <div class="screen" id="screen-asignacion">
+      <div class="cc-view" id="ccAsignacionView" style="display:none">
         <div class="card" style="margin-bottom:20px">
           <div class="card-header">
             <div><div class="card-title">Asignación masiva de órdenes</div><div style="font-size:12px;color:var(--gris);margin-top:2px" id="asigSubtitulo">Selecciona agentes y asigna las órdenes sin agente</div></div>
@@ -330,9 +454,19 @@ td{padding:11px 14px;font-size:13px}
       </div>
 
       <!-- INFORMES -->
-      <div class="screen" id="screen-informes">
+      <div class="cc-view" id="ccInformesView" style="display:none">
+        <div class="card" style="margin-bottom:16px">
+          <div style="padding:14px 20px;display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap">
+            <div style="font-size:12px;font-weight:700;color:var(--azul);text-transform:uppercase;letter-spacing:.5px;padding-bottom:9px">Período de cierre<div style="font-size:10px;font-weight:500;color:var(--gris);text-transform:none;letter-spacing:0;margin-top:2px">por fecha de creación</div></div>
+            <div class="fg" style="gap:4px"><label class="fl">Desde</label><input type="date" class="fi" id="fDesde" style="padding:8px 10px" onchange="renderInformes()"></div>
+            <div class="fg" style="gap:4px"><label class="fl">Hasta</label><input type="date" class="fi" id="fHasta" style="padding:8px 10px" onchange="renderInformes()"></div>
+            <button class="btn btn-ghost btn-sm" onclick="presetMes()">Mes actual</button>
+            <button class="btn btn-ghost btn-sm" onclick="limpiarFechas()">Limpiar</button>
+            <div id="rangoInfo" style="margin-left:auto;font-size:12px;color:var(--gris);padding-bottom:9px"></div>
+          </div>
+        </div>
         <div class="stats-grid">
-          <div class="stat-card blue"><div class="stat-label">Total gestionadas</div><div class="stat-value" id="rTotal">0</div><div class="stat-sub">Este mes</div></div>
+          <div class="stat-card blue"><div class="stat-label">Total gestionadas</div><div class="stat-value" id="rTotal">0</div><div class="stat-sub">En el período</div></div>
           <div class="stat-card green"><div class="stat-label">Tasa contacto</div><div class="stat-value" id="rContacto">0%</div><div class="stat-sub">Contactados / Total</div></div>
           <div class="stat-card amber"><div class="stat-label">Prom. intentos</div><div class="stat-value" id="rIntentos">0</div><div class="stat-sub">Por orden</div></div>
           <div class="stat-card red"><div class="stat-label">Sin contacto</div><div class="stat-value" id="rFallidos">0</div><div class="stat-sub">Requieren seguimiento</div></div>
@@ -348,6 +482,168 @@ td{padding:11px 14px;font-size:13px}
           </div>
         </div>
       </div>
+      </div>
+
+      <!-- CONSTRUCTORAS -->
+      <div class="screen" id="screen-constructoras">
+        <div class="ct-tabs">
+          <button class="ct-tab active" id="ctTabProy" onclick="ctSetTab('proyectos')">📋 En ejecución</button>
+          <button class="ct-tab" id="ctTabNeg" onclick="ctSetTab('negociacion')">🤝 Negociación</button>
+          <button class="ct-tab" id="ctTabCot" onclick="ctSetTab('cotizacion')">🧮 Cotización</button>
+          <button class="ct-tab" id="ctTabInf" onclick="ctSetTab('informes')">📊 Informes</button>
+        </div>
+
+        <div id="ctProyectosView">
+          <div class="stats-grid">
+            <div class="stat-card blue"><div class="stat-label">CxC pendientes (activos)</div><div class="stat-value" id="ctKpiActivos">0</div><div class="stat-sub">Conexiones por realizar</div></div>
+            <div class="stat-card amber"><div class="stat-label">CxC por legalizar</div><div class="stat-value" id="ctKpiLeg">0</div><div class="stat-sub">Conexiones pendientes</div></div>
+            <div class="stat-card red"><div class="stat-label">Ventas sin registrar OSF</div><div class="stat-value" id="ctKpiOsf">0</div><div class="stat-sub">Por registrar en sistema</div></div>
+            <div class="stat-card green"><div class="stat-label">Proyectos terminados</div><div class="stat-value" id="ctKpiTerm">0</div><div class="stat-sub">Gasificados y cerrados</div></div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Proyectos de constructoras</div>
+              <div style="display:flex;gap:8px">
+                <button class="btn btn-ghost btn-sm" onclick="ctExportCSV()">↓ Exportar CSV</button>
+                <button class="btn btn-az btn-sm" onclick="ctAbrirModal()">+ Nuevo proyecto</button>
+              </div>
+            </div>
+            <div class="filters-bar">
+              <input class="f-search" id="ctSearch" placeholder="🔍 Buscar por proyecto o constructora..." oninput="ctBuscar()">
+              <select class="f-sel" id="ctFEstado" onchange="ctRenderTabla()"><option value="">Estado: todos</option><option>En ejecución</option><option>Terminado</option><option>Pendiente x gasificar</option><option>Suspendido</option></select>
+              <select class="f-sel" id="ctFEjec" onchange="ctRenderTabla()"><option value="">Ejecutivo: todos</option><option>Andrés Hincapié</option><option>Andrés Narváez</option><option>Willy Arbeláez</option><option>Javier Méndez</option></select>
+              <select class="f-sel" id="ctFLoc" onchange="ctRenderTabla()"><option value="">Localidad: todas</option><option>Cali</option><option>Yumbo</option><option>Jamundí</option><option>Palmira</option><option>Candelaria</option><option>Buga</option><option>Tuluá</option><option>Cartago</option><option>Florida</option><option>Pradera</option><option>El Cerrito</option><option>Buenaventura</option></select>
+            </div>
+            <div style="overflow-x:auto">
+              <table style="min-width:1180px"><thead><tr>
+                <th>#</th><th>Proyecto / Subproyecto</th><th>Constructora</th><th>Ejecutivo</th><th>Localidad</th><th>Tipo</th><th style="text-align:right">CxC Vend.</th><th>Legalización</th><th>OSF pend.</th><th>Red externa</th><th>Estado</th><th>Notas</th>
+              </tr></thead><tbody id="tbCtProy"></tbody></table>
+            </div>
+          </div>
+          <div style="font-size:11px;color:var(--gris);margin-top:10px;font-family:'Cascadia Code','Consolas',monospace" id="ctCount"></div>
+        </div>
+
+        <div id="ctNegociacionView" style="display:none">
+          <div style="background:#EFF6FF;border:1px solid #BFDBFE;color:#1E40AF;padding:10px 16px;border-radius:10px;font-size:12.5px;margin-bottom:16px">ℹ️ Proyectos en negociación comercial — algunos inician ejecución hasta 3 años después del primer contacto.</div>
+          <div class="stats-grid">
+            <div class="stat-card blue"><div class="stat-label">Proyectos en pipeline</div><div class="stat-value" id="ctNegCount">0</div><div class="stat-sub">En negociación comercial</div></div>
+            <div class="stat-card amber"><div class="stat-label">Unidades potenciales</div><div class="stat-value" id="ctNegUnid">0</div><div class="stat-sub">Viviendas estimadas</div></div>
+            <div class="stat-card green"><div class="stat-label">Unidades ponderadas</div><div class="stat-value" id="ctNegPond">0</div><div class="stat-sub">Por probabilidad de cierre</div></div>
+            <div class="stat-card red"><div class="stat-label">Inicio en 2027</div><div class="stat-value" id="ctNegCorto">0</div><div class="stat-sub">Arranque más cercano</div></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div class="card-title">Pipeline de proyectos en negociación</div><button class="btn btn-az btn-sm" onclick="openModalNegocio()">+ Nuevo negocio</button></div>
+            <div style="overflow-x:auto"><table style="min-width:1040px"><thead><tr>
+              <th>#</th><th>Proyecto</th><th>Constructora</th><th>Ejecutivo</th><th>Localidad</th><th>Tipo</th><th style="text-align:right">Unidades est.</th><th>Inicio estimado</th><th>Etapa</th><th>Probabilidad</th>
+            </tr></thead><tbody id="tbCtNeg"></tbody></table></div>
+          </div>
+        </div>
+
+        <div id="ctCotizacionView" style="display:none">
+          <div class="card" style="margin-bottom:16px">
+            <div class="card-header"><div class="card-title">Datos de la cotización</div>
+              <div style="display:flex;gap:8px">
+                <button class="btn btn-ghost btn-sm" onclick="ctCotPrint()">🖨 Imprimir / PDF</button>
+                <button class="btn btn-az btn-sm" onclick="ctCotGuardar()">Guardar cotización</button>
+              </div>
+            </div>
+            <div style="padding:18px 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px">
+              <div class="fg"><label class="fl">Proyecto</label><input class="fi" id="cotProyecto" placeholder="Nombre del proyecto"></div>
+              <div class="fg"><label class="fl">Constructora</label><input class="fi" id="cotConstructora" placeholder="Constructora"></div>
+              <div class="fg"><label class="fl">Ejecutivo</label><select class="fs" id="cotEjec"><option>Andrés Hincapié</option><option>Andrés Narváez</option><option>Willy Arbeláez</option><option>Javier Méndez</option></select></div>
+              <div class="fg"><label class="fl">N° de viviendas</label><input class="fi" id="cotViviendas" type="number" value="1" oninput="ctCotRecalc()"></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div class="card-title">Conceptos</div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <select class="f-sel" id="cotConcepto"><option>Cargo de conexión (CxC)</option><option>Acometida domiciliaria</option><option>Instalación interna (1 punto)</option><option>Punto interno adicional</option><option>Medidor G-1.6</option><option>Regulador de presión</option><option>Centro de medición</option><option>Obra civil (rotura y reposición)</option><option>Prueba de hermeticidad</option></select>
+                <button class="btn btn-ac btn-sm" onclick="ctCotAddItem()">+ Agregar</button>
+              </div>
+            </div>
+            <div style="overflow-x:auto"><table style="min-width:640px"><thead><tr><th>Concepto</th><th style="text-align:right">Cant.</th><th style="text-align:right">Valor unitario</th><th style="text-align:right">Subtotal</th><th></th></tr></thead><tbody id="tbCotItems"></tbody></table></div>
+            <div style="padding:16px 20px;display:flex;justify-content:flex-end">
+              <div style="width:280px;display:flex;flex-direction:column;gap:8px">
+                <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--gris)">Subtotal</span><span class="mono" id="cotSubtotal">$0</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--gris)">IVA (19%)</span><span class="mono" id="cotIva">$0</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:16px;font-weight:700;color:var(--azul);border-top:1px solid var(--gris-c);padding-top:8px"><span>Total</span><span class="mono" id="cotTotal">$0</span></div>
+                <div style="font-size:11px;color:var(--gris);text-align:right" id="cotPorViv"></div>
+              </div>
+            </div>
+          </div>
+          <div class="card" style="margin-top:16px">
+            <div class="card-header"><div class="card-title">Cotizaciones guardadas</div></div>
+            <table><thead><tr><th>Fecha</th><th>Proyecto</th><th>Constructora</th><th>Ejecutivo</th><th style="text-align:right">Viviendas</th><th style="text-align:right">Total</th></tr></thead><tbody id="tbCotGuardadas"></tbody></table>
+          </div>
+        </div>
+
+        <div id="ctInformesView" style="display:none">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+            <div class="card"><div class="card-header"><div class="card-title">Distribución por estado del proyecto</div></div><div style="padding:20px" id="ctDonutWrap"></div></div>
+            <div class="card"><div class="card-header"><div class="card-title">Top constructoras · CxC por legalizar</div></div><div style="padding:20px" id="ctBarConst"></div></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+            <div class="card"><div class="card-header"><div class="card-title">Proyectos por ejecutivo comercial</div></div><div style="padding:20px" id="ctBarEjec"></div></div>
+            <div class="card"><div class="card-header"><div class="card-title">Proyectos por localidad</div></div><div style="padding:20px" id="ctBarLoc"></div></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div class="card-title">Resumen por tipo de proyecto</div></div>
+            <div style="overflow-x:auto"><table style="min-width:680px"><thead><tr><th>Tipo de proyecto</th><th style="text-align:right">Cantidad</th><th style="text-align:right">CxC vendidas</th><th style="text-align:right">CxC legalizadas</th><th style="text-align:right">Por legalizar</th><th>% avance</th></tr></thead><tbody id="tbCtResumen"></tbody></table></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- INFORMES EJECUTIVOS -->
+      <div class="screen" id="screen-informesEjec">
+        <div class="ct-tabs">
+          <button class="ct-tab active" id="infTabEjec" onclick="infSetTab('ejecutiva')">👔 Vista Ejecutiva</button>
+          <button class="ct-tab" id="infTabOper" onclick="infSetTab('operativa')">🛠️ Vista Operativa</button>
+        </div>
+
+        <div id="infEjecView">
+          <div class="stats-grid" id="infKpis" style="grid-template-columns:repeat(auto-fit,minmax(195px,1fr))"></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0">
+            <div class="card"><div class="card-header"><div class="card-title">Cumplimiento por segmento — meta vs real</div></div><div style="padding:20px" id="infBarSeg"></div></div>
+            <div class="card"><div class="card-header"><div class="card-title">Tendencia ventas vs conexiones (6 meses)</div></div><div style="padding:20px" id="infLine"></div></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:16px;margin-bottom:16px">
+            <div class="card"><div class="card-header"><div class="card-title">Distribución de ventas por tipo</div></div><div style="padding:20px" id="infDonut"></div></div>
+            <div class="card"><div class="card-header"><div class="card-title">Alertas críticas</div></div><div style="overflow-x:auto"><table><thead><tr><th>Prioridad</th><th>Indicador</th><th style="text-align:right">Valor</th></tr></thead><tbody id="infAlertas"></tbody></table></div></div>
+          </div>
+        </div>
+
+        <div id="infOperView" style="display:none">
+          <div class="inf-sec">📞 Panel Call Center</div>
+          <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:16px;margin-bottom:18px">
+            <div class="card"><div class="card-header"><div class="card-title">Ventas por asesor (hoy)</div></div><div style="overflow-x:auto"><table><thead><tr><th>Asesor</th><th style="text-align:right">Ventas/Meta</th><th style="text-align:right">Cumpl.</th><th style="text-align:right">Contactados</th><th style="text-align:right">Efectividad</th></tr></thead><tbody id="infAsesores"></tbody></table></div></div>
+            <div class="card"><div class="card-header"><div class="card-title">Potenciales por zona</div></div><div style="padding:18px" id="infPotenciales"></div></div>
+          </div>
+
+          <div class="inf-sec">🏷️ Panel Ventas</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:18px">
+            <div class="card"><div class="card-header"><div class="card-title">Inventario por estado</div></div><div style="padding:8px 18px 16px" id="infInventario"></div></div>
+            <div class="card"><div class="card-header"><div class="card-title">Top 5 causales no instalación</div></div><div style="padding:18px" id="infCausales"></div></div>
+            <div class="card"><div class="card-header"><div class="card-title">Distribución por localidad</div></div><div style="padding:18px" id="infLocalidad"></div></div>
+          </div>
+
+          <div class="inf-sec">🏗️ Panel Constructoras</div>
+          <div style="display:grid;grid-template-columns:1fr 1.3fr;gap:16px;margin-bottom:18px">
+            <div style="display:flex;flex-direction:column;gap:16px">
+              <div class="stats-grid" id="infConsResumen" style="grid-template-columns:1fr 1fr 1fr;margin:0"></div>
+              <div class="card"><div class="card-header"><div class="card-title">CxC por legalizar · constructora</div></div><div style="padding:18px" id="infCxcConst"></div></div>
+            </div>
+            <div class="card"><div class="card-header"><div class="card-title">Proyectos con OSF pendiente</div></div><div style="overflow-x:auto"><table><thead><tr><th>Proyecto</th><th>Constructora</th><th style="text-align:right">OSF pend.</th></tr></thead><tbody id="infOsfTable"></tbody></table></div></div>
+          </div>
+
+          <div class="inf-sec">🧭 Panel Expansión</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+            <div class="card"><div class="card-header"><div class="card-title">Conexiones por anillo</div></div><div style="padding:18px" id="infAnillos"></div></div>
+            <div class="card"><div class="card-header"><div class="card-title">Avance zonas nuevas vs proyección</div></div><div style="padding:18px" id="infZonas"></div></div>
+          </div>
+        </div>
+      </div>
+
+      
 
     </div>
   </div>
@@ -369,15 +665,39 @@ td{padding:11px 14px;font-size:13px}
       </div>
       <div class="fg"><label class="fl">Resultado</label>
         <select class="fs" id="mResultado">
-          <option>No contesta</option>
-          <option>Contactado - Agendado</option>
-          <option>Contactado - Rechazó</option>
-          <option>Buzón de voz</option>
-          <option>Número equivocado</option>
-          <option>Número no existe</option>
-          <option>Fuera de servicio</option>
-          <option>Reagendado por cliente</option>
-          <option>IVR - No marcó opción</option>
+          <option value="" disabled selected>Selecciona tipificación…</option>
+          <option>CAMBIO DE TITULARIDAD</option>
+          <option>CASA SOLA</option>
+          <option>CLIENTE CON RED INTERNA TERCERO</option>
+          <option>CLIENTE NO DA INFORMACION</option>
+          <option>COMERCIAL</option>
+          <option>COSTO ALTO</option>
+          <option>DESEMPLEADO</option>
+          <option>DIRECCION NO COINCIDE</option>
+          <option>ERROR EN DIRECCIONAMIENTO</option>
+          <option>NO CONTACTO</option>
+          <option>NO DINERO</option>
+          <option>NO GESTIONAR</option>
+          <option>NO PASO VALIDACION DE DATOS</option>
+          <option>NUMERO NO CORRESPONDE</option>
+          <option>PERMISO DE ROTURA</option>
+          <option>PREDIO EN CONSTRUCCION</option>
+          <option>PREDIO SIN ANILLO</option>
+          <option>REQUIERE DISEÑO</option>
+          <option>SE DEJA COTIZACION AL CLIENTE</option>
+          <option>SIN DATOS DE CONTACTO</option>
+          <option>SOLICITA ASESOR PRESENCIAL</option>
+          <option>VENTA CON PODER</option>
+          <option>VENTA DE PREDIO</option>
+          <option>VENTA NO CONCRETADA</option>
+          <option>VENTA NO CONCRETADA - IVR</option>
+          <option>VENTA RAZON SOCIAL</option>
+          <option>VENTA TIPICA REALIZADA</option>
+          <option>VENTA TÍPICA REALIZADA - IVR</option>
+          <option>VENTA YA GENERADA</option>
+          <option>VIAJA</option>
+          <option>VISITA TECNICA</option>
+          <option>VOLVER A LLAMAR</option>
         </select>
       </div>
       <div class="fg"><label class="fl">Canal</label>
@@ -435,6 +755,59 @@ td{padding:11px 14px;font-size:13px}
   </div>
 </div>
 
+<!-- MODAL NUEVO PROYECTO (Constructoras) -->
+<div class="modal-overlay" id="modalNuevoProy">
+  <div class="modal modal-lg">
+    <div class="modal-title">🏗️ Nuevo proyecto</div>
+    <div class="modal-sub">Registro de seguimiento · Constructoras</div>
+    <div class="modal-grid">
+      <div class="fg fg-full"><label class="fl">Nombre del proyecto</label><input class="fi" id="npProyecto" placeholder="PROYECTO ..."></div>
+      <div class="fg"><label class="fl">Subproyecto / Etapa</label><input class="fi" id="npSub" placeholder="Etapa 1 / Torre 2"></div>
+      <div class="fg"><label class="fl">Constructora</label><input class="fi" id="npConstructora" placeholder="MARVAL SAS"></div>
+      <div class="fg"><label class="fl">Ejecutivo comercial</label><select class="fs" id="npEjec"><option>Andrés Hincapié</option><option>Andrés Narváez</option><option>Willy Arbeláez</option><option>Javier Méndez</option></select></div>
+      <div class="fg"><label class="fl">Tipo de proyecto</label><select class="fs" id="npTipo"><option>Venta Completa</option><option>Internas GDO</option><option>Solo Cargos INT_CSV</option><option>Solo Cargos INT_GDO</option></select></div>
+      <div class="fg"><label class="fl">Localidad</label><select class="fs" id="npLoc"><option>Cali</option><option>Yumbo</option><option>Jamundí</option><option>Palmira</option><option>Candelaria</option><option>Buga</option><option>Tuluá</option><option>Cartago</option><option>Florida</option><option>Pradera</option><option>El Cerrito</option><option>Buenaventura</option></select></div>
+      <div class="fg"><label class="fl">Firma contratista</label><select class="fs" id="npFirma"><option>CONDUGAS</option><option>CONCALI</option><option>HL GAS</option><option>NC-NAGASCO</option></select></div>
+      <div class="fg"><label class="fl">CxC vendidas</label><input class="fi" id="npCxc" type="number" placeholder="0"></div>
+      <div class="fg"><label class="fl">Internas vendidas</label><input class="fi" id="npInt" type="number" placeholder="0"></div>
+      <div class="fg"><label class="fl">CxC legalizadas</label><input class="fi" id="npLeg" type="number" placeholder="0"></div>
+      <div class="fg"><label class="fl">Estado red externa</label><select class="fs" id="npRed"><option>Construida</option><option>En construcción</option><option>Pendiente</option><option>No requiere</option></select></div>
+      <div class="fg"><label class="fl">Estado del proyecto</label><select class="fs" id="npEstado"><option>En ejecución</option><option>Terminado</option><option>Pendiente x gasificar</option><option>Suspendido</option></select></div>
+      <div class="fg"><label class="fl">Requiere permiso</label><select class="fs" id="npPermiso"><option>Sí</option><option>No</option><option>En trámite</option></select></div>
+      <div class="fg"><label class="fl">Ventas por registrar en OSF</label><input class="fi" id="npOsf" type="number" placeholder="0"></div>
+      <div class="fg fg-full"><label class="fl">Notas</label><textarea class="ft" id="npNotas" placeholder="Observaciones del proyecto..."></textarea></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('modalNuevoProy')">Cancelar</button>
+      <button class="btn btn-az" onclick="ctGuardar()">Guardar proyecto</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL NUEVO NEGOCIO (Negociación) -->
+<div class="modal-overlay" id="modalNuevoNegocio">
+  <div class="modal modal-lg">
+    <div class="modal-title">🤝 Nuevo negocio en negociación</div>
+    <div class="modal-sub">Registro de oportunidad comercial en pipeline</div>
+    <div class="modal-grid">
+      <div class="fg fg-full"><label class="fl">Nombre del proyecto</label><input class="fi" id="nnProyecto" placeholder="PROYECTO ..."></div>
+      <div class="fg"><label class="fl">Constructora</label><input class="fi" id="nnConstructora" placeholder="Nombre de la constructora"></div>
+      <div class="fg"><label class="fl">Ejecutivo comercial</label><select class="fs" id="nnEjec"><option>Andrés Hincapié</option><option>Andrés Narváez</option><option>Willy Arbeláez</option><option>Javier Méndez</option></select></div>
+      <div class="fg"><label class="fl">Localidad</label><select class="fs" id="nnLoc"><option>Cali</option><option>Yumbo</option><option>Jamundí</option><option>Palmira</option><option>Candelaria</option><option>Buga</option><option>Tuluá</option><option>Cartago</option><option>Florida</option><option>Pradera</option><option>El Cerrito</option><option>Buenaventura</option></select></div>
+      <div class="fg"><label class="fl">Tipo de proyecto</label><select class="fs" id="nnTipo"><option>Venta Completa</option><option>Internas GDO</option><option>Solo Cargos INT_CSV</option><option>Solo Cargos INT_GDO</option></select></div>
+      <div class="fg"><label class="fl">Unidades estimadas</label><input class="fi" id="nnUnidades" type="number" placeholder="0" min="0"></div>
+      <div class="fg"><label class="fl">Inicio estimado</label><input class="fi" id="nnInicio" placeholder="Ej: 2027 - I"></div>
+      <div class="fg"><label class="fl">Etapa</label><select class="fs" id="nnEtapa"><option>Prospecto</option><option>Contacto inicial</option><option>Propuesta enviada</option><option>En negociación</option><option>Cierre / Adjudicado</option></select></div>
+      <div class="fg"><label class="fl">Probabilidad de cierre (%)</label><input class="fi" id="nnProb" type="number" min="0" max="100" placeholder="0 – 100"></div>
+      <div class="fg fg-full"><label class="fl">Notas / Observaciones</label><textarea class="ft" id="nnNotas" placeholder="Detalle relevante de la negociación..."></textarea></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('modalNuevoNegocio')">Cancelar</button>
+      <button class="btn btn-az" onclick="guardarNuevoNegocio()">Guardar negocio</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast-ct" id="toastCt"></div>
 <div class="loading" id="loadingDiv"><div class="spinner"></div><div class="loading-txt" id="loadingTxt">Cargando...</div></div>
 
@@ -473,7 +846,7 @@ const USUARIOS = [
 // ═══════════════════════════════════════════════════
 // ESTADO
 // ═══════════════════════════════════════════════════
-let ST = { usuario:null, ordenes:[], ivrRecords:[], ordenActual:null };
+let ST = { usuario:null, ordenes:[], ivrRecords:[], ordenActual:null, ctProyectos:[], ctCotizaciones:[] };
 
 // ═══════════════════════════════════════════════════
 // UTILS
@@ -506,7 +879,7 @@ const LS_SESSION='gdo_cc_session_v2';
 function saveSession(){
   if(!ST.usuario) return;
   try{
-    const blob=JSON.stringify({v:2, ts:ST._lastSync||Date.now(), usuario:ST.usuario, ordenes:ST.ordenes, ivrRecords:ST.ivrRecords});
+    const blob=JSON.stringify({v:2, ts:ST._lastSync||Date.now(), usuario:ST.usuario, ordenes:ST.ordenes, ivrRecords:ST.ivrRecords, ctProyectos:ST.ctProyectos, ctCotizaciones:ST.ctCotizaciones});
     localStorage.setItem(LS_SESSION, btoa(unescape(encodeURIComponent(blob))));
   }catch(e){ console.warn('No se pudo guardar la sesión:',e.message); }
 }
@@ -552,6 +925,7 @@ function mapOrden(o){
     solicitud:       o.field_6 || o.Solicitud || '',         // RAD / Solicitud
     tipoTrabajo:     o.field_12 || o.TipoDeTrabajo || '',    // Tipo de trabajo
     fechaRecibido:   o.field_14 || '',                       // FECHA DE RECIBIDO BD
+    fechaCreacion:   o.Created || o.field_14 || '',          // Fecha de creación (carga a SharePoint)
     fechaAsignacion: o.field_14 || '',
     agente:          o.field_16 ? o.field_16.trim() : '',    // AGENTE RESPONSABLE (trim espacios dobles)
     estadoAsignacion:o.EstadoAsignacion || '',               // EstadoAsignacion
@@ -576,13 +950,65 @@ function mapOrden(o){
   };
 }
 
+// ═══════════════════════════════════════════════════
+// TIPIFICACIONES — columna RESULTADO (lista oficial)
+// ═══════════════════════════════════════════════════
+const TIPIFICACIONES=['CAMBIO DE TITULARIDAD','CASA SOLA','CLIENTE CON RED INTERNA TERCERO','CLIENTE NO DA INFORMACION','COMERCIAL','COSTO ALTO','DESEMPLEADO','DIRECCION NO COINCIDE','ERROR EN DIRECCIONAMIENTO','NO CONTACTO','NO DINERO','NO GESTIONAR','NO PASO VALIDACION DE DATOS','NUMERO NO CORRESPONDE','PERMISO DE ROTURA','PREDIO EN CONSTRUCCION','PREDIO SIN ANILLO','REQUIERE DISEÑO','SE DEJA COTIZACION AL CLIENTE','SIN DATOS DE CONTACTO','SOLICITA ASESOR PRESENCIAL','VENTA CON PODER','VENTA DE PREDIO','VENTA NO CONCRETADA','VENTA NO CONCRETADA - IVR','VENTA RAZON SOCIAL','VENTA TIPICA REALIZADA','VENTA TÍPICA REALIZADA - IVR','VENTA YA GENERADA','VIAJA','VISITA TECNICA','VOLVER A LLAMAR'];
+// Categorías operativas (clasifican CADA tipificación en una cubeta)
+//  · SIN CONTACTO  → no se logró comunicación
+//  · CONTACTADA    → se contactó pero la gestión sigue abierta (volver a llamar)
+//  · VENTA         → venta concretada
+//  · SIN ÉXITO     → gestión cerrada sin venta (todo lo demás)
+const TIPIF_SINCONTACTO=new Set(['NO CONTACTO','NUMERO NO CORRESPONDE','SIN DATOS DE CONTACTO','NO PASO VALIDACION DE DATOS']);
+const TIPIF_CONTACTADA =new Set(['VOLVER A LLAMAR']);
+const TIPIF_VENTA      =new Set(['VENTA TIPICA REALIZADA','VENTA TÍPICA REALIZADA - IVR','VENTA YA GENERADA','VENTA CON PODER','VENTA RAZON SOCIAL','VENTA DE PREDIO']);
+// SIN ÉXITO = cualquier otra tipificación reconocida (venta no concretada, se deja cotización, no dinero, etc.)
+function categoriaTipif(t){
+  if(!t) return '';
+  if(TIPIF_VENTA.has(t)) return 'venta';
+  if(TIPIF_SINCONTACTO.has(t)) return 'sincontacto';
+  if(TIPIF_CONTACTADA.has(t)) return 'contactada';
+  return 'sinexito';
+}
+
+// Clave normalizada (mayúsculas, sin tildes, espacios colapsados) para comparar
+function _key(s){ return (s||'').toString().toUpperCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\s+/g,' ').trim(); }
+const _TIPIF_KEYS=TIPIFICACIONES.map(t=>({t,k:_key(t)})).sort((a,b)=>b.k.length-a.k.length);
+// Extrae SOLO la tipificación de un texto que puede traer comentarios pegados
+function normTipif(raw){
+  const k=_key(raw); if(!k) return '';
+  for(const it of _TIPIF_KEYS){ if(k===it.k) return it.t; }
+  for(const it of _TIPIF_KEYS){ if(k.startsWith(it.k)) return it.t; }
+  for(const it of _TIPIF_KEYS){ if(k.includes(it.k)) return it.t; }
+  return '';
+}
+function marcacionesDe(o){ return [o.marcIni,o.marc2,o.marc3]; }
+function llenasDe(o){ return marcacionesDe(o).filter(m=>m&&m.trim()).length; }
+// Categoría de la orden = la cubeta de mayor prioridad entre sus marcaciones
+//  prioridad: venta > sin éxito > contactada (volver a llamar) > sin contacto
+function categoriaOrden(o){
+  const cats=marcacionesDe(o).map(m=>categoriaTipif(normTipif(m))).filter(Boolean);
+  if(cats.includes('venta')) return 'venta';
+  if(cats.includes('sinexito')) return 'sinexito';
+  if(cats.includes('contactada')) return 'contactada';
+  if(cats.includes('sincontacto')) return 'sincontacto';
+  return 'sincontacto'; // sin marcación = aún sin contacto
+}
+function esVenta(o){ return categoriaOrden(o)==='venta'; }
+// Orden gestionada = ya no requiere volver a llamar:
+//  · legalizada · venta o cierre sin venta · o las 3 marcaciones completas
+function esGestionada(o){
+  if(o.legalizada==='SI'||o.legalizada==='Si') return true;
+  const c=categoriaOrden(o);
+  if(c==='venta'||c==='sinexito') return true;
+  if(llenasDe(o)>=3) return true;
+  return false;
+}
+
 function estadoOrden(o){
   if(o.legalizada==='SI'||o.legalizada==='Si') return 'Legalizada';
   if(!o.agente) return 'Sin asignar';
-  const marc=[o.marcIni,o.marc2,o.marc3].filter(m=>m&&m.trim());
-  if(!marc.length) return 'Pendiente';
-  if(marc.some(m=>m.toLowerCase().includes('agendado'))) return 'Gestionado';
-  if(marc.length===3) return 'Fallido';
+  if(esGestionada(o)) return 'Gestionado';
   return 'Pendiente';
 }
 
@@ -665,11 +1091,16 @@ function iniciarApp(fromCache=false){
   document.getElementById('appShell').style.display='block';
   document.getElementById('sidebarName').textContent=ST.usuario.nombre;
   document.getElementById('sidebarRole').textContent=ST.usuario.rol;
+  var _pu=document.getElementById('portalUserName'); if(_pu) _pu.textContent=ST.usuario.nombre;
+  var _pr=document.getElementById('portalUserRole'); if(_pr) _pr.textContent=ST.usuario.rol;
   if(['Admin','AdminCall'].includes(ST.usuario.rol)) document.querySelectorAll('.admin-only').forEach(el=>el.style.display='');
+  ST._cardFilter=null; ST._sort=null;
   updateClock();
   if(!ST._clockTimer) ST._clockTimer=setInterval(()=>{updateClock();updateFreshness();},30000);
+  if(!ST._secTimer) ST._secTimer=setInterval(updateFooterClock,1000); updateFooterClock();
   hideLoad();
   saveSession();
+  navTo('portal');
   if(ST.ordenes.length>0){
     // Pinta al instante (login fresco o caché)
     renderOrdenes(); updateStats(); updateFreshness();
@@ -686,7 +1117,8 @@ function iniciarApp(fromCache=false){
 function doLogout(){
   clearSession();
   if(ST._clockTimer){ clearInterval(ST._clockTimer); }
-  ST={usuario:null,ordenes:[],ivrRecords:[],ordenActual:null};
+  if(ST._secTimer){ clearInterval(ST._secTimer); ST._secTimer=null; }
+  ST={usuario:null,ordenes:[],ivrRecords:[],ordenActual:null,ctProyectos:[],ctCotizaciones:[]};
   document.getElementById('appShell').style.display='none';
   document.getElementById('loginScreen').style.display='flex';
   document.getElementById('loginUser').value='';
@@ -705,6 +1137,10 @@ function updateClock(){
 // NAVEGACIÓN
 // ═══════════════════════════════════════════════════
 const SCREENS={
+  portal:    {title:'Portal',           sub:'Selecciona un módulo para comenzar'},
+  callcenter:{title:'Gestión Call Center', sub:'Órdenes, marcaciones, IVR, asignación e informes'},
+  informesEjec:{title:'Informes Ejecutivos', sub:'Dashboard 360° de indicadores comerciales'},
+  constructoras:{title:'Seguimiento de Constructoras', sub:'Proyectos de constructoras e informes'},
   ordenes:   {title:'Mis Órdenes',      sub:'Órdenes asignadas pendientes de gestión'},
   marcaciones:{title:'Marcaciones',     sub:'Historial de intentos de contacto'},
   ivr:       {title:'IVR',              sub:'Creación manual de registros IVR'},
@@ -722,6 +1158,31 @@ function nav(name, el){
   if(name==='marcaciones') renderMarcaciones();
   if(name==='asignacion') renderAsignacion();
   if(name==='ivr') renderIVR();
+  if(name==='constructoras') ctInit();
+  if(name==='callcenter') ccInit();
+  if(name==='informesEjec') infInit();
+}
+function navTo(name){ const el=document.querySelector('.nav-item[data-nav="'+name+'"]'); nav(name, el); }
+// ---- Call Center: módulos en una sola ventana con pestañas ----
+let CC={tab:'ordenes'};
+function ccNav(tab, el){ CC.tab=tab; nav('callcenter', el); }
+function irCallCenter(){ ccNav('ordenes', document.querySelector('.nav-item[data-nav="callcenter"]')); }
+function ccInit(){
+  if(!CC.tab) CC.tab='ordenes';
+  if(!ST.ordenes || !ST.ordenes.length){ loadOrdenes(); }
+  ccSetTab(CC.tab);
+}
+function ccSetTab(tab){
+  CC.tab=tab;
+  const tabs={ordenes:'ccTabOrdenes',marcaciones:'ccTabMarc',ivr:'ccTabIvr',asignacion:'ccTabAsig',informes:'ccTabInf'};
+  const views={ordenes:'ccOrdenesView',marcaciones:'ccMarcacionesView',ivr:'ccIvrView',asignacion:'ccAsignacionView',informes:'ccInformesView'};
+  Object.entries(tabs).forEach(([k,id])=>{ const e=document.getElementById(id); if(e) e.classList.toggle('active',tab===k); });
+  Object.entries(views).forEach(([k,id])=>{ const e=document.getElementById(id); if(e) e.style.display=tab===k?'':'none'; });
+  if(tab==='marcaciones') renderMarcaciones();
+  else if(tab==='ivr') renderIVR();
+  else if(tab==='asignacion') renderAsignacion();
+  else if(tab==='informes') renderInformes();
+  else { renderOrdenes(); updateStats(); }
 }
 
 // ═══════════════════════════════════════════════════
@@ -782,19 +1243,73 @@ function getOrdenesVisibles(){
   });
 }
 
+// Tipificación más reciente de la orden — SOLO tipificación, nunca observaciones
+function resultadoOrden(o){
+  const last=o.marc3||o.marc2||o.marcIni||'';
+  return normTipif(last)||'';
+}
+// Filtro por tarjeta (Total / Sin contacto / Contactadas / Sin éxito)
+function setCardFilter(f){
+  ST._cardFilter = (ST._cardFilter===f)?null:f;
+  ['cardTotal','cardPend','cardGest','cardSin'].forEach(id=>document.getElementById(id).classList.remove('active'));
+  const activeId = !ST._cardFilter ? 'cardTotal' : {sincontacto:'cardPend',contactada:'cardGest',sinexito:'cardSin'}[ST._cardFilter];
+  if(activeId) document.getElementById(activeId).classList.add('active');
+  renderOrdenes();
+}
+// Ordenamiento por encabezado (clic alterna asc/desc)
+function sortOrdenes(key){
+  const s=ST._sort||{};
+  if(s.key===key) s.dir=(s.dir==='asc')?'desc':'asc';
+  else { s.key=key; s.dir='asc'; }
+  ST._sort=s; renderOrdenes();
+}
+function _sortVal(o,key){
+  switch(key){
+    case 'orden':         return o.orden||'';
+    case 'cliente':       return (o.nombre||o.cliente||'').toLowerCase();
+    case 'direccion':     return (o.direccion||'').toLowerCase();
+    case 'telefono':      return o.telefono||'';
+    case 'fechaRecibido': return parseFecha(o.fechaRecibido)?.getTime()||0;
+    case 'marcaciones':   return [o.marcIni,o.marc2,o.marc3].filter(m=>m&&m.trim()).length;
+    case 'resultado':     return resultadoOrden(o).toLowerCase();
+    case 'estado':        return estadoOrden(o);
+    default:              return '';
+  }
+}
+
 function renderOrdenes(){
   const buscar=document.getElementById('fBuscar').value.toLowerCase();
   const filtEstado=document.getElementById('fEstado').value;
+  const cf=ST._cardFilter;
   const base=getOrdenesVisibles();
-  const filtradas=base.filter(o=>{
+  let filtradas=base.filter(o=>{
     const est=estadoOrden(o);
     const txt=(o.orden+o.nombre+o.cliente+o.direccion).toLowerCase();
-    return (!buscar||txt.includes(buscar))&&(!filtEstado||est===filtEstado);
+    if(buscar && !txt.includes(buscar)) return false;
+    if(filtEstado && est!==filtEstado) return false;
+    if(cf && categoriaOrden(o)!==cf) return false;
+    return true;
+  });
+
+  // Ordenamiento
+  if(ST._sort && ST._sort.key){
+    const key=ST._sort.key, dir=ST._sort.dir==='desc'?-1:1;
+    filtradas=filtradas.slice().sort((a,b)=>{
+      const va=_sortVal(a,key), vb=_sortVal(b,key);
+      if(typeof va==='number' && typeof vb==='number') return (va-vb)*dir;
+      const na=parseFloat(va), nb=parseFloat(vb);
+      if(!isNaN(na)&&!isNaN(nb)&&String(va).trim()!==''&&String(vb).trim()!=='') return (na-nb)*dir;
+      return String(va).localeCompare(String(vb),'es')*dir;
+    });
+  }
+  // Indicadores de orden en encabezados
+  document.querySelectorAll('#tblOrdenes .sort-ind').forEach(el=>{
+    el.textContent=(ST._sort&&ST._sort.key===el.dataset.k)?(ST._sort.dir==='asc'?'▲':'▼'):'';
   });
 
   const tb=document.getElementById('tbOrdenes');
   if(!filtradas.length){
-    tb.innerHTML=`<tr><td colspan="8"><div class="empty"><div class="empty-icon">📭</div><div class="empty-title">Sin órdenes</div><div class="empty-sub">No hay resultados con ese filtro</div></div></td></tr>`;
+    tb.innerHTML=`<tr><td colspan="9"><div class="empty"><div class="empty-icon">📭</div><div class="empty-title">Sin órdenes</div><div class="empty-sub">No hay resultados con ese filtro</div></div></td></tr>`;
     return;
   }
   tb.innerHTML=filtradas.map(o=>{
@@ -802,9 +1317,13 @@ function renderOrdenes(){
     const marcCount=[o.marcIni,o.marc2,o.marc3].filter(m=>m&&m.trim()).length;
     const dots=[o.marcIni,o.marc2,o.marc3].map(m=>{
       if(!m||!m.trim()) return '<div class="marc-dot empty"></div>';
-      if(m.toLowerCase().includes('agendado')) return '<div class="marc-dot ok"></div>';
+      const t=normTipif(m);
+      const c=categoriaTipif(t);
+      if(c==='venta') return '<div class="marc-dot ok"></div>';
+      if(c==='sinexito') return '<div class="marc-dot fail"></div>';
       return '<div class="marc-dot fail"></div>';
     }).join('');
+    const res=resultadoOrden(o);
     return `<tr>
       <td><span class="mono">${o.orden}</span><div class="sub">${o.tipoTrabajo||''}</div></td>
       <td>${o.nombre||o.cliente||'—'}<div class="sub">${o.cliente||''}</div></td>
@@ -812,6 +1331,7 @@ function renderOrdenes(){
       <td><span class="mono" style="font-size:12px">${o.telefono||'—'}</span></td>
       <td>${fmt(o.fechaRecibido)}</td>
       <td><span style="font-size:11px;color:var(--gris)">${marcCount}/3</span><div class="marc-bar">${dots}</div></td>
+      <td><span style="font-size:12px">${res||'—'}</span></td>
       <td>${badgeEstado(est)}</td>
       <td><div style="display:flex;gap:5px">
         <button class="btn btn-xs btn-ac" onclick="openMarcacion('${o.orden}')" title="Marcación">📞</button>
@@ -824,14 +1344,14 @@ function renderOrdenes(){
 function updateStats(){
   const vis=getOrdenesVisibles();
   const total=vis.length;
-  const pend=vis.filter(o=>estadoOrden(o)==='Pendiente').length;
-  const gest=vis.filter(o=>estadoOrden(o)==='Gestionado').length;
-  const fall=vis.filter(o=>estadoOrden(o)==='Fallido').length;
+  const sinContacto=vis.filter(o=>categoriaOrden(o)==='sincontacto').length;
+  const contactadas=vis.filter(o=>categoriaOrden(o)==='contactada').length;
+  const sinExito=vis.filter(o=>categoriaOrden(o)==='sinexito').length;
   document.getElementById('sTotal').textContent=total;
-  document.getElementById('sPend').textContent=pend;
-  document.getElementById('sGest').textContent=gest;
-  document.getElementById('sVenc').textContent=fall;
-  document.getElementById('badgePend').textContent=pend;
+  document.getElementById('sPend').textContent=sinContacto;
+  document.getElementById('sGest').textContent=contactadas;
+  document.getElementById('sVenc').textContent=sinExito;
+  document.getElementById('badgePend').textContent=sinContacto;
 }
 
 // ═══════════════════════════════════════════════════
@@ -874,17 +1394,21 @@ function renderMarcaciones(){
   });
   const tb=document.getElementById('tbMarcaciones');
   if(!marc.length){ tb.innerHTML=`<tr><td colspan="5"><div class="empty"><div class="empty-icon">📞</div><div class="empty-title">Sin marcaciones</div></div></td></tr>`; return; }
-  tb.innerHTML=marc.map(m=>`<tr>
+  tb.innerHTML=marc.map(m=>{
+    const tip=normTipif(m.resultado);
+    const est=esGestionada({marcIni:tip})?'Gestionado':'Pendiente';
+    return `<tr>
     <td><span class="mono">${m.orden}</span></td><td>${m.cliente||'—'}</td>
     <td><span style="font-size:11px;font-weight:600;color:var(--gris)">${m.campo}</span></td>
-    <td>${badgeEstado(m.resultado?.includes('Agendado')?'Gestionado':m.resultado?.includes('No')||m.resultado?.includes('no')?'Fallido':'Pendiente')}
-        <div class="sub">${m.resultado||''}</div></td>
+    <td>${badgeEstado(est)}<div class="sub">${tip||m.resultado||''}</div></td>
     <td><span class="mono" style="font-size:11px">${m.fecha||'—'}</span></td>
-  </tr>`).join('');
+  </tr>`;
+  }).join('');
 }
 
 function openMarcacion(orden){
   document.getElementById('mOrden').value=orden||'';
+  document.getElementById('mResultado').value='';
   if(orden){
     const o=ST.ordenes.find(x=>x.orden===orden);
     if(o){
@@ -902,6 +1426,7 @@ async function guardarMarcacion(){
   const canal=document.getElementById('mCanal').value;
   const obs=document.getElementById('mObs').value;
   if(!orden){ toast('Ingresa el número de orden','err'); return; }
+  if(!resultado){ toast('Selecciona una tipificación de resultado','err'); return; }
 
   const o=ST.ordenes.find(x=>x.orden===orden);
   if(!o){ toast('Orden no encontrada en la lista','err'); return; }
@@ -1087,17 +1612,60 @@ async function ejecutarAsignacion(){
 // ═══════════════════════════════════════════════════
 // INFORMES
 // ═══════════════════════════════════════════════════
+function parseFecha(s){
+  if(!s) return null;
+  let d=new Date(s);
+  if(isNaN(d)) d=new Date(String(s).replace(' ','T'));
+  return isNaN(d)?null:d;
+}
+function getRango(){
+  const dv=document.getElementById('fDesde')?.value;
+  const hv=document.getElementById('fHasta')?.value;
+  const desde=dv?new Date(dv+'T00:00:00'):null;
+  const hasta=hv?new Date(hv+'T23:59:59'):null;
+  return {desde,hasta,activo:!!(desde||hasta)};
+}
+function enRango(f,r){
+  if(!r.activo) return true;
+  const d=parseFecha(f); if(!d) return false;
+  if(r.desde && d<r.desde) return false;
+  if(r.hasta && d>r.hasta) return false;
+  return true;
+}
+function marcsConFecha(o){
+  return [
+    {r:o.marcIni,f:o.fechaMarcIni},
+    {r:o.marc2,  f:o.fechaMarc2},
+    {r:o.marc3,  f:o.fechaMarc3},
+  ].filter(x=>x.r&&x.r.trim());
+}
+function presetMes(){
+  const n=new Date();
+  const ini=new Date(n.getFullYear(),n.getMonth(),1);
+  const fin=new Date(n.getFullYear(),n.getMonth()+1,0);
+  const f=d=>d.toISOString().slice(0,10);
+  document.getElementById('fDesde').value=f(ini);
+  document.getElementById('fHasta').value=f(fin);
+  renderInformes();
+}
+function limpiarFechas(){
+  document.getElementById('fDesde').value='';
+  document.getElementById('fHasta').value='';
+  renderInformes();
+}
+
 function renderInformes(){
-  const vis=ST.ordenes.filter(o=>o.agente);
+  const r=getRango();
+  const base=ST.ordenes.filter(o=>o.agente);
+  // Filtro por FECHA DE CREACIÓN (carga a SharePoint): desde ahí cuenta la gestión del agente
+  const vis = r.activo ? base.filter(o=>enRango(o.fechaCreacion,r)) : base;
   const total=vis.length;
-  const marc=vis.reduce((a,o)=>{
-    if(o.marcIni) a.push(o.marcIni);
-    if(o.marc2)   a.push(o.marc2);
-    if(o.marc3)   a.push(o.marc3);
-    return a;
-  },[]);
-  const contactados=vis.filter(o=>[o.marcIni,o.marc2,o.marc3].some(m=>m?.includes('Agendado'))).length;
-  const fallidos=vis.filter(o=>estadoOrden(o)==='Fallido').length;
+  // Toda la gestión de esas órdenes queda evidenciada, sin importar cuándo se marcó
+  const marc=[];
+  vis.forEach(o=>marcsConFecha(o).forEach(m=>marc.push(m.r)));
+
+  const contactados=vis.filter(esGestionada).length;
+  const fallidos=vis.filter(o=>!esGestionada(o)).length;
   const tasa=total?Math.round((contactados/total)*100):0;
   const promIntentos=total?(marc.length/total).toFixed(1):0;
 
@@ -1106,23 +1674,378 @@ function renderInformes(){
   document.getElementById('rIntentos').textContent=promIntentos;
   document.getElementById('rFallidos').textContent=fallidos;
 
-  // Tabla resultados
+  const info=document.getElementById('rangoInfo');
+  if(info) info.textContent = r.activo
+    ? `${total} órdenes creadas en el período · ${marc.length} marcaciones`
+    : `${total} órdenes — todo el histórico`;
+
+  // Tabla resultados — solo tipificaciones oficiales (ignora comentarios libres)
   const conteo={};
-  marc.forEach(m=>{ conteo[m]=(conteo[m]||0)+1; });
-  const totalMar=marc.length||1;
-  document.getElementById('tbResultados').innerHTML=Object.entries(conteo).sort((a,b)=>b[1]-a[1]).map(([r,n])=>`
-    <tr><td style="font-size:13px">${r}</td><td style="font-weight:700">${n}</td><td style="font-size:12px;color:var(--gris)">${Math.round((n/totalMar)*100)}%</td></tr>`).join('')||'<tr><td colspan="3" style="text-align:center;color:var(--gris);font-size:13px;padding:20px">Sin datos aún</td></tr>';
+  marc.forEach(m=>{ const t=normTipif(m); if(t) conteo[t]=(conteo[t]||0)+1; });
+  const totalMar=Object.values(conteo).reduce((a,b)=>a+b,0)||1;
+  document.getElementById('tbResultados').innerHTML=Object.entries(conteo).sort((a,b)=>b[1]-a[1]).map(([res,n])=>`
+    <tr><td style="font-size:13px">${res}</td><td style="font-weight:700">${n}</td><td style="font-size:12px;color:var(--gris)">${Math.round((n/totalMar)*100)}%</td></tr>`).join('')||'<tr><td colspan="3" style="text-align:center;color:var(--gris);font-size:13px;padding:20px">Sin datos en el período</td></tr>';
 
   // Tabla por agente
   const porAgente={};
-  vis.forEach(o=>{ if(o.agente){ if(!porAgente[o.agente]) porAgente[o.agente]={total:0,contact:0}; porAgente[o.agente].total++; if(estadoOrden(o)==='Gestionado') porAgente[o.agente].contact++; } });
+  vis.forEach(o=>{ if(o.agente){ if(!porAgente[o.agente]) porAgente[o.agente]={total:0,contact:0}; porAgente[o.agente].total++; if(esGestionada(o)) porAgente[o.agente].contact++; } });
   document.getElementById('tbAgentes').innerHTML=Object.entries(porAgente).sort((a,b)=>b[1].total-a[1].total).map(([ag,d])=>`
-    <tr><td style="font-size:12px">${ag}</td><td style="font-weight:700">${d.total}</td><td style="color:var(--ok);font-weight:600">${d.contact}</td></tr>`).join('')||'<tr><td colspan="3" style="text-align:center;color:var(--gris);font-size:13px;padding:20px">Sin datos aún</td></tr>';
+    <tr><td style="font-size:12px">${ag}</td><td style="font-weight:700">${d.total}</td><td style="color:var(--ok);font-weight:600">${d.contact}</td></tr>`).join('')||'<tr><td colspan="3" style="text-align:center;color:var(--gris);font-size:13px;padding:20px">Sin datos en el período</td></tr>';
 }
 
 // ═══════════════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════════════
+// ─── RELOJ FOOTER PORTAL (tiempo real) ───
+function updateFooterClock(){ const el=document.getElementById('portalClock'); if(!el) return; const n=new Date(); el.textContent=n.toLocaleDateString('es-CO',{weekday:'long',day:'2-digit',month:'long',year:'numeric'})+' · '+n.toLocaleTimeString('es-CO'); }
+
+// ─── INFORMES EJECUTIVOS Y OPERATIVOS ───
+// Reemplazable por: return fetch('/api/indicadores').then(r=>r.json());
+function fetchIndicadores(){
+  return Promise.resolve({
+    segmentos:[
+      {seg:'Residencial', meta:2274, venta:1893, cnx:1846, cumpV:83, cumpC:81},
+      {seg:'Constructoras', meta:1384, venta:700, cnx:805, cumpV:51, cumpC:58},
+      {seg:'Comercio', meta:41, venta:43, cnx:40, cumpV:106, cumpC:98}
+    ],
+    efectividadCC:58, noContactoCC:42,
+    anulaciones:{total:124, recuperables:71},
+    ventasSinOSF:312, cxcSinInstalar:1185, proyectosActivos:6,
+    tendencia:[{m:'Ene',v:1620,c:1500},{m:'Feb',v:1710,c:1580},{m:'Mar',v:1805,c:1690},{m:'Abr',v:1760,c:1720},{m:'May',v:1880,c:1790},{m:'Jun',v:1893,c:1846}],
+    ventasTipo:[{t:'Completa',v:980},{t:'CxC Red GdO',v:520},{t:'CxC Red Aliado',v:230},{t:'Interna',v:163}],
+    asesores:[
+      {nombre:'Erika Marin', metaDia:8, ventasDia:7, contactados:42, efect:78},
+      {nombre:'Alejandro Londoño', metaDia:8, ventasDia:9, contactados:51, efect:84},
+      {nombre:'Leidy Marin', metaDia:8, ventasDia:5, contactados:38, efect:62},
+      {nombre:'Juan Acosta', metaDia:8, ventasDia:8, contactados:46, efect:80},
+      {nombre:'Darminson Gutierrez', metaDia:8, ventasDia:6, contactados:40, efect:70},
+      {nombre:'Hans Guevara', metaDia:8, ventasDia:4, contactados:33, efect:55}
+    ],
+    potenciales:[{zona:'Sur',n:340},{zona:'Oriente',n:210},{zona:'Norte',n:180},{zona:'Centro',n:120}],
+    inventario:[{estado:'En gestión firma',n:629},{estado:'Instaladas sin legalizar',n:430},{estado:'Sin instalar',n:1185}],
+    causales:[{c:'Predio en construcción',n:312},{c:'No contacto',n:268},{c:'Permiso de rotura',n:190},{c:'Costo alto',n:142},{c:'Requiere diseño',n:98}],
+    localidad:[{loc:'Cali',n:1180},{loc:'Yumbo',n:320},{loc:'Jamundí',n:240},{loc:'Palmira',n:210},{loc:'Candelaria',n:140}],
+    consResumen:{activos:6, terminados:2, sinIniciar:6},
+    cxcConst:[{c:'CONSTRUCTORA MELENDEZ',n:230},{c:'JARAMILLO MORA',n:200},{c:'MARVAL SAS',n:52},{c:'LIMONAR CONSTRUCTORA',n:40},{c:'CONSTRUCTORA BOLIVAR',n:0}],
+    osfPend:[{proyecto:'FILANDIA',constructora:'JARAMILLO MORA',osf:40},{proyecto:'RESERVA DE COMFANDI',constructora:'CONSTRUCTORA MELENDEZ',osf:25},{proyecto:'TIERRA LINDA',constructora:'CONSTRUCTORA MELENDEZ',osf:15},{proyecto:'LOS NARANJOS',constructora:'LIMONAR CONSTRUCTORA',osf:12}],
+    anillos:[{a:'Zona nueva',c:276,p:7},{a:'Cosechas',c:434,p:44},{a:'Saturación',c:1136,p:50}],
+    zonas:[{z:'Ciudad del Sur',real:276,proy:520},{z:'Corredor Yumbo',real:180,proy:300},{z:'Eje Jamundí',real:140,proy:260}]
+  });
+}
+let INF={tab:'ejecutiva', data:null};
+function infSem(p){ return p>=95?CTC.ok : p>=70?CTC.warn : CTC.err; }
+function infInit(){ if(INF.data){ infRender(); return; } fetchIndicadores().then(d=>{ INF.data=d; infRender(); }); }
+function infSetTab(t){ INF.tab=t; infRender(); }
+function infRender(){
+  document.getElementById('infTabEjec').classList.toggle('active',INF.tab==='ejecutiva');
+  document.getElementById('infTabOper').classList.toggle('active',INF.tab==='operativa');
+  document.getElementById('infEjecView').style.display=INF.tab==='ejecutiva'?'':'none';
+  document.getElementById('infOperView').style.display=INF.tab==='operativa'?'':'none';
+  if(!INF.data) return;
+  if(INF.tab==='ejecutiva') infRenderEjec(); else infRenderOper();
+}
+function infDonut(data){
+  const total=data.reduce((a,x)=>a+x.value,0)||1; const r=54,cx=70,cy=70,circ=2*Math.PI*r; let off=0; let circles='';
+  data.forEach(s=>{ const frac=s.value/total; circles+=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${s.color}" stroke-width="22" stroke-dasharray="${frac*circ} ${circ}" stroke-dashoffset="${-off}" transform="rotate(-90 ${cx} ${cy})"></circle>`; off+=frac*circ; });
+  const legend=data.map(s=>`<div class="ct-legend-item"><span class="ct-dot" style="background:${s.color}"></span><strong>${s.label}</strong><span style="color:var(--gris)">${ctNf(s.value)} · ${Math.round(s.value/total*100)}%</span></div>`).join('');
+  return `<div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap"><svg width="140" height="140" viewBox="0 0 140 140">${circles}<text x="70" y="66" text-anchor="middle" font-size="20" font-weight="700" fill="${CTC.azul}">${ctNf(total)}</text><text x="70" y="84" text-anchor="middle" font-size="10" fill="${CTC.gris}">ventas</text></svg><div class="ct-legend">${legend}</div></div>`;
+}
+function infLine(serie, xlabels){
+  const W=620,H=220,pad=36; const all=serie.flatMap(s=>s.pts); const max=Math.max(...all)*1.12||1; const n=xlabels.length;
+  const x=i=> pad + i*(W-pad-14)/(n-1); const y=v=> H-pad-26 - (v/max)*(H-pad-44) + 26;
+  let svg=`<svg viewBox="0 0 ${W} ${H}" width="100%" style="max-width:100%;display:block">`;
+  for(let g=0;g<=3;g++){ const gy=26+(H-pad-44)*g/3; svg+=`<line x1="${pad}" y1="${gy}" x2="${W-14}" y2="${gy}" stroke="#EEF2F6"/>`; }
+  svg+=`<line x1="${pad}" y1="${H-pad}" x2="${W-14}" y2="${H-pad}" stroke="#E2E8F0"/>`;
+  xlabels.forEach((l,i)=> svg+=`<text x="${x(i)}" y="${H-pad+16}" font-size="11" fill="#64748B" text-anchor="middle">${l}</text>`);
+  serie.forEach(s=>{ const pts=s.pts.map((v,i)=>`${x(i)},${y(v)}`).join(' '); svg+=`<polyline points="${pts}" fill="none" stroke="${s.color}" stroke-width="2.5" stroke-linejoin="round"/>`; s.pts.forEach((v,i)=> svg+=`<circle cx="${x(i)}" cy="${y(v)}" r="3.5" fill="${s.color}"/>`); });
+  svg+=`</svg>`;
+  const legend=serie.map(s=>`<span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#475569;margin-right:16px"><span style="width:10px;height:10px;border-radius:50%;background:${s.color}"></span>${s.name}</span>`).join('');
+  return svg+`<div style="margin-top:8px">${legend}</div>`;
+}
+function infGroupBars(segs){
+  const max=Math.max(...segs.flatMap(s=>[s.meta,s.venta]))||1;
+  return segs.map(s=>{ const cV=infSem(s.cumpV); return `<div style="margin-bottom:16px">
+    <div style="display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:6px"><strong>${s.seg}</strong><span style="color:${cV};font-weight:700">${s.cumpV}% cumpl.</span></div>
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><span style="width:42px;font-size:10px;color:#94A3B8">Meta</span><div class="ct-htrack" style="height:16px"><div class="ct-hfill" style="width:${s.meta/max*100}%;background:#CBD5E1"></div></div><span style="width:52px;text-align:right;font-size:11px" class="mono">${ctNf(s.meta)}</span></div>
+    <div style="display:flex;align-items:center;gap:8px"><span style="width:42px;font-size:10px;color:#94A3B8">Real</span><div class="ct-htrack" style="height:16px"><div class="ct-hfill" style="width:${s.venta/max*100}%;background:${cV}"></div></div><span style="width:52px;text-align:right;font-size:11px" class="mono">${ctNf(s.venta)}</span></div>
+  </div>`; }).join('');
+}
+function infRenderEjec(){
+  const d=INF.data;
+  const tMeta=d.segmentos.reduce((a,s)=>a+s.meta,0), tVenta=d.segmentos.reduce((a,s)=>a+s.venta,0), tCnx=d.segmentos.reduce((a,s)=>a+s.cnx,0);
+  const cV=Math.round(tVenta/tMeta*100), cC=Math.round(tCnx/tMeta*100);
+  const kpis=[
+    {label:'Ventas del mes vs meta', val:cV+'%', sub:ctNf(tVenta)+' / '+ctNf(tMeta), color:infSem(cV)},
+    {label:'Conexiones vs meta', val:cC+'%', sub:ctNf(tCnx)+' / '+ctNf(tMeta), color:infSem(cC)},
+    {label:'Efectividad Call Center', val:d.efectividadCC+'%', sub:'contactados que compran', color:infSem(d.efectividadCC)},
+    {label:'Anulaciones del mes', val:ctNf(d.anulaciones.total), sub:ctNf(d.anulaciones.recuperables)+' recuperables', color:CTC.err},
+    {label:'Ventas pendientes OSF', val:ctNf(d.ventasSinOSF), sub:'por integrar a OSF', color:CTC.warn},
+    {label:'Proyectos constructoras activos', val:d.proyectosActivos, sub:'en ejecución', color:CTC.azul}
+  ];
+  document.getElementById('infKpis').innerHTML=kpis.map(k=>`<div class="stat-card" style="border-left:4px solid ${k.color}"><div class="stat-label">${k.label}</div><div class="stat-value" style="color:${k.color};font-size:26px">${k.val}</div><div class="stat-sub">${k.sub}</div></div>`).join('');
+  document.getElementById('infBarSeg').innerHTML=infGroupBars(d.segmentos);
+  document.getElementById('infLine').innerHTML=infLine([{name:'Ventas',color:CTC.azul,pts:d.tendencia.map(x=>x.v)},{name:'Conexiones',color:CTC.acento,pts:d.tendencia.map(x=>x.c)}], d.tendencia.map(x=>x.m));
+  const tc=['#003366','#005599','#4fc3f7','#16a34a'];
+  document.getElementById('infDonut').innerHTML=infDonut(d.ventasTipo.map((x,i)=>({label:x.t,value:x.v,color:tc[i]})));
+  const alertas=[
+    {pri:'alta',ind:'Ventas sin integrar a OSF',val:ctNf(d.ventasSinOSF)+' ventas'},
+    {pri:'alta',ind:'CxC completas sin instalar',val:ctNf(d.cxcSinInstalar)+' unidades'},
+    {pri:'media',ind:'Proyectos constructoras al 51% de cumplimiento',val:'51%'},
+    {pri:'media',ind:'Tasa de no contacto Call Center > 40%',val:d.noContactoCC+'%'}
+  ];
+  document.getElementById('infAlertas').innerHTML=alertas.map(a=>{ const c=a.pri==='alta'?CTC.err:CTC.warn; const ic=a.pri==='alta'?'🔴':'🟡'; return `<tr style="background:${c}0d"><td><span style="font-weight:600;color:${c}">${ic} ${a.pri==='alta'?'Alta':'Media'}</span></td><td>${a.ind}</td><td style="text-align:right;font-weight:600;color:${c}" class="mono">${a.val}</td></tr>`; }).join('');
+}
+function infRenderOper(){
+  const d=INF.data;
+  document.getElementById('infAsesores').innerHTML=d.asesores.map(a=>{ const cump=Math.round(a.ventasDia/a.metaDia*100); return `<tr><td>${a.nombre}</td><td style="text-align:right" class="mono">${a.ventasDia}/${a.metaDia}</td><td style="text-align:right;font-weight:600;color:${infSem(cump)}" class="mono">${cump}%</td><td style="text-align:right" class="mono">${a.contactados}</td><td style="text-align:right;font-weight:600;color:${infSem(a.efect)}" class="mono">${a.efect}%</td></tr>`; }).join('');
+  document.getElementById('infPotenciales').innerHTML=ctBars(d.potenciales.map(x=>({label:x.zona,value:x.n,color:CTC.acento})));
+  const invColor={'En gestión firma':CTC.warn,'Instaladas sin legalizar':CTC.azul,'Sin instalar':CTC.err};
+  document.getElementById('infInventario').innerHTML=d.inventario.map(x=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--gris-c)">${ctBadge(x.estado,invColor[x.estado]||CTC.gris)}<span class="mono" style="font-weight:700;color:${invColor[x.estado]||CTC.gris}">${ctNf(x.n)}</span></div>`).join('');
+  document.getElementById('infCausales').innerHTML=ctBars(d.causales.map(x=>({label:x.c,value:x.n,color:CTC.warn})));
+  document.getElementById('infLocalidad').innerHTML=ctBars(d.localidad.map(x=>({label:x.loc,value:x.n,color:CTC.azul})));
+  document.getElementById('infConsResumen').innerHTML=[{l:'Activos',n:d.consResumen.activos,c:CTC.warn},{l:'Terminados',n:d.consResumen.terminados,c:CTC.ok},{l:'Sin iniciar',n:d.consResumen.sinIniciar,c:CTC.gris}].map(x=>`<div class="stat-card" style="border-left:4px solid ${x.c}"><div class="stat-label">${x.l}</div><div class="stat-value" style="color:${x.c}">${x.n}</div></div>`).join('');
+  document.getElementById('infCxcConst').innerHTML=ctBars(d.cxcConst.map(x=>({label:x.c,value:x.n,color:CTC.warn})));
+  document.getElementById('infOsfTable').innerHTML=d.osfPend.map(x=>`<tr><td>${x.proyecto}</td><td><span style="font-size:12px">${x.constructora}</span></td><td style="text-align:right"><span class="ct-sem" style="color:${CTC.err}"><span class="ct-dot" style="background:${CTC.err}"></span>${x.osf}</span></td></tr>`).join('');
+  document.getElementById('infAnillos').innerHTML='<div class="ct-hbars">'+d.anillos.map(x=>`<div class="ct-hrow"><div class="ct-hlabel" title="${x.a}">${x.a}</div><div class="ct-htrack"><div class="ct-hfill" style="width:${x.p}%;background:${CTC.azul}"></div></div><div class="ct-hval">${ctNf(x.c)}</div></div>`).join('')+'</div>';
+  document.getElementById('infZonas').innerHTML=d.zonas.map(x=>{ const av=Math.round(x.real/x.proy*100); return `<div style="margin-bottom:12px"><div style="display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:5px"><strong>${x.z}</strong><span style="color:${infSem(av)};font-weight:700">${av}%</span></div><div class="ct-prog"><div class="ct-prog-track"><div class="ct-prog-fill" style="width:${av}%;background:${infSem(av)}"></div></div><span style="font-size:11px;color:var(--gris)" class="mono">${ctNf(x.real)}/${ctNf(x.proy)}</span></div></div>`; }).join('');
+}
+
+// ─── CONSTRUCTORAS — seguimiento de proyectos ───
+const CT_TIPOS=['Venta Completa','Internas GDO','Solo Cargos INT_CSV','Solo Cargos INT_GDO'];
+const CT_ESTADOS=['En ejecución','Terminado','Pendiente x gasificar','Suspendido'];
+const CTC={azul:'#0F3460',acento:'#00B4D8',ok:'#10B981',warn:'#F59E0B',err:'#EF4444',gris:'#94A3B8'};
+let CT={tab:'proyectos'};
+
+// Catálogo de conceptos para cotización (valores de referencia COP, editables)
+const CT_COT_CATALOGO=[
+  {c:'Cargo de conexión (CxC)', v:1200000},
+  {c:'Acometida domiciliaria', v:350000},
+  {c:'Instalación interna (1 punto)', v:180000},
+  {c:'Punto interno adicional', v:90000},
+  {c:'Medidor G-1.6', v:140000},
+  {c:'Regulador de presión', v:85000},
+  {c:'Centro de medición', v:220000},
+  {c:'Obra civil (rotura y reposición)', v:300000},
+  {c:'Prueba de hermeticidad', v:60000}
+];
+// Proyectos en negociación (pipeline comercial — datos quemados)
+const CT_NEG=[
+  { proyecto:'PROYECTO ALTOS DEL BOSQUE', constructora:'CONSTRUCTORA BOLIVAR', ejecutivo:'Andrés Hincapié', localidad:'Jamundí', tipo:'Venta Completa', unidades:540, etapa:'Propuesta enviada', prob:50, inicio:'2027 - I', notas:'Negociación de cargo de conexión.' },
+  { proyecto:'PROYECTO CIUDAD MELÉNDEZ FASE 4', constructora:'CONSTRUCTORA MELENDEZ', ejecutivo:'Willy Arbeláez', localidad:'Cali', tipo:'Internas GDO', unidades:1200, etapa:'En negociación', prob:75, inicio:'2027 - II', notas:'Macroproyecto, alta prioridad.' },
+  { proyecto:'PROYECTO RESERVA DE YUMBO', constructora:'JARAMILLO MORA', ejecutivo:'Andrés Narváez', localidad:'Yumbo', tipo:'Venta Completa', unidades:320, etapa:'Contacto inicial', prob:30, inicio:'2028 - I', notas:'Pendiente visita comercial.' },
+  { proyecto:'PROYECTO TORRES DE PANCE', constructora:'MARVAL SAS', ejecutivo:'Javier Méndez', localidad:'Cali', tipo:'Solo Cargos INT_GDO', unidades:210, etapa:'Cierre / Adjudicado', prob:90, inicio:'2027 - I', notas:'Adjudicado, formalizando contrato.' },
+  { proyecto:'PROYECTO VALLE DE PALMIRA', constructora:'LIMONAR CONSTRUCTORA', ejecutivo:'Andrés Hincapié', localidad:'Palmira', tipo:'Internas GDO', unidades:680, etapa:'Prospecto', prob:10, inicio:'2029 - I', notas:'Lote en estudio de factibilidad.' },
+  { proyecto:'PROYECTO BRISAS DE CANDELARIA', constructora:'CONSTRUCTORA BOLIVAR', ejecutivo:'Willy Arbeláez', localidad:'Candelaria', tipo:'Venta Completa', unidades:150, etapa:'Propuesta enviada', prob:50, inicio:'2028 - II', notas:'Esperando aprobación de junta.' }
+];
+let ctCot={items:[]};
+function ctMoney(n){ return '$'+new Intl.NumberFormat('es-CO').format(Math.round(n||0)); }
+function ctEtapaColor(e){ return e==='Cierre / Adjudicado'?CTC.ok : e==='En negociación'?CTC.warn : e==='Propuesta enviada'?CTC.azul : e==='Contacto inicial'?CTC.acento : CTC.gris; }
+function ctProbColor(p){ return p>=75?CTC.ok:p>=40?CTC.warn:CTC.gris; }
+
+// Reemplazable por: return fetch('/api/constructoras').then(r=>r.json());
+function fetchProyectosConstructoras(){
+  return Promise.resolve([
+    { id:1, proyecto:'PROYECTO BELATERRA AREIA', subproyecto:'Etapa 1', constructora:'MARVAL SAS', ejecutivo:'Andrés Hincapié', localidad:'Cali', tipo:'Venta Completa', cnxVendidas:96, intVendidas:12, cnxLegalizadas:44, osfPendiente:8, firma:'CONDUGAS', redExterna:'En construcción', estado:'En ejecución', permiso:'Sí', notas:'Avance de obra civil al 60%.' },
+    { id:2, proyecto:'PROYECTO TIERRA LINDA DE LA PLANICIE', subproyecto:'Torre 3', constructora:'CONSTRUCTORA MELENDEZ', ejecutivo:'Andrés Narváez', localidad:'Cali', tipo:'Venta Completa', cnxVendidas:730, intVendidas:80, cnxLegalizadas:650, osfPendiente:15, firma:'CONCALI', redExterna:'Construida', estado:'En ejecución', permiso:'Sí', notas:'Macroproyecto, legalización avanzada.' },
+    { id:3, proyecto:'PROYECTO FILANDIA', subproyecto:'Etapa 2', constructora:'JARAMILLO MORA', ejecutivo:'Willy Arbeláez', localidad:'Yumbo', tipo:'Internas GDO', cnxVendidas:420, intVendidas:60, cnxLegalizadas:220, osfPendiente:40, firma:'HL GAS', redExterna:'En construcción', estado:'En ejecución', permiso:'En trámite', notas:'Pendiente permiso de vía para red externa.' },
+    { id:4, proyecto:'PROYECTO SAONA TR2', subproyecto:'Torre 2', constructora:'MARVAL SAS', ejecutivo:'Andrés Hincapié', localidad:'Cali', tipo:'Solo Cargos INT_GDO', cnxVendidas:50, intVendidas:0, cnxLegalizadas:44, osfPendiente:0, firma:'CONDUGAS', redExterna:'Construida', estado:'Terminado', permiso:'Sí', notas:'Proyecto cerrado y gasificado.' },
+    { id:5, proyecto:'PROYECTO LOS NARANJOS', subproyecto:'Etapa 1', constructora:'LIMONAR CONSTRUCTORA', ejecutivo:'Javier Méndez', localidad:'Jamundí', tipo:'Venta Completa', cnxVendidas:72, intVendidas:10, cnxLegalizadas:36, osfPendiente:12, firma:'NC-NAGASCO', redExterna:'Pendiente', estado:'Pendiente x gasificar', permiso:'No', notas:'En ejecución, pendiente por gasificar.' },
+    { id:6, proyecto:'PROYECTO ALTOS DE PANCE', subproyecto:'Etapa 1', constructora:'JARAMILLO MORA', ejecutivo:'Andrés Narváez', localidad:'Cali', tipo:'Internas GDO', cnxVendidas:310, intVendidas:40, cnxLegalizadas:290, osfPendiente:5, firma:'CONCALI', redExterna:'Construida', estado:'En ejecución', permiso:'Sí', notas:'Cierre programado para el próximo mes.' },
+    { id:7, proyecto:'PROYECTO RESERVA DE COMFANDI', subproyecto:'Bloque A', constructora:'CONSTRUCTORA MELENDEZ', ejecutivo:'Willy Arbeláez', localidad:'Palmira', tipo:'Solo Cargos INT_CSV', cnxVendidas:180, intVendidas:20, cnxLegalizadas:30, osfPendiente:25, firma:'HL GAS', redExterna:'Pendiente', estado:'Pendiente x gasificar', permiso:'No', notas:'Inicio reciente, baja legalización.' },
+    { id:8, proyecto:'PROYECTO BRISAS DEL FRAILE', subproyecto:'Etapa 1', constructora:'LIMONAR CONSTRUCTORA', ejecutivo:'Javier Méndez', localidad:'Yumbo', tipo:'Venta Completa', cnxVendidas:64, intVendidas:8, cnxLegalizadas:60, osfPendiente:0, firma:'CONDUGAS', redExterna:'Construida', estado:'Terminado', permiso:'Sí', notas:'Terminado, OSF al día.' }
+  ]);
+}
+
+function ctNf(n){ return new Intl.NumberFormat('es-CO').format(n||0); }
+function ctProg(p){ return p>=80?CTC.ok:p>=40?CTC.warn:CTC.err; }
+function ctEstadoColor(e){ return e==='Terminado'?CTC.ok:e==='En ejecución'?CTC.warn:e==='Suspendido'?CTC.gris:CTC.err; }
+function ctRedColor(r){ return r==='Construida'?CTC.ok:r==='En construcción'?CTC.warn:r==='No requiere'?CTC.gris:CTC.err; }
+function ctBadge(t,c){ return `<span class="badge" style="background:${c}1a;color:${c}">${t}</span>`; }
+
+function ctInit(){
+  if(ST.ctProyectos && ST.ctProyectos.length){ ctRender(); return; }
+  fetchProyectosConstructoras().then(d=>{ ST.ctProyectos=d; saveSession(); ctRender(); });
+}
+function ctSetTab(t){ CT.tab=t; ctRender(); }
+function ctFiltered(){
+  const q=(document.getElementById('ctSearch').value||'').toLowerCase().trim();
+  const fe=document.getElementById('ctFEstado').value;
+  const fj=document.getElementById('ctFEjec').value;
+  const fl=document.getElementById('ctFLoc').value;
+  return (ST.ctProyectos||[]).filter(p=>
+    (!q||p.proyecto.toLowerCase().includes(q)||p.constructora.toLowerCase().includes(q)) &&
+    (!fe||p.estado===fe)&&(!fj||p.ejecutivo===fj)&&(!fl||p.localidad===fl));
+}
+function ctRender(){
+  const tabs={proyectos:'ctTabProy',negociacion:'ctTabNeg',cotizacion:'ctTabCot',informes:'ctTabInf'};
+  const views={proyectos:'ctProyectosView',negociacion:'ctNegociacionView',cotizacion:'ctCotizacionView',informes:'ctInformesView'};
+  Object.entries(tabs).forEach(([k,id])=>document.getElementById(id).classList.toggle('active',CT.tab===k));
+  Object.entries(views).forEach(([k,id])=>document.getElementById(id).style.display=CT.tab===k?'':'none');
+  ctRenderKpis();
+  if(CT.tab==='proyectos') ctRenderTabla();
+  else if(CT.tab==='negociacion') ctRenderNegociacion();
+  else if(CT.tab==='cotizacion') ctRenderCotizacion();
+  else ctRenderInformes();
+}
+function ctRenderKpis(){
+  const ps=ST.ctProyectos||[];
+  document.getElementById('ctKpiActivos').textContent=ctNf(ps.filter(p=>p.estado!=='Terminado').reduce((a,p)=>a+(p.cnxVendidas-p.cnxLegalizadas),0));
+  document.getElementById('ctKpiLeg').textContent=ctNf(ps.reduce((a,p)=>a+(p.cnxVendidas-p.cnxLegalizadas),0));
+  document.getElementById('ctKpiOsf').textContent=ctNf(ps.reduce((a,p)=>a+p.osfPendiente,0));
+  document.getElementById('ctKpiTerm').textContent=ps.filter(p=>p.estado==='Terminado').length;
+}
+function ctRenderTabla(){
+  const rows=ctFiltered();
+  const tb=document.getElementById('tbCtProy');
+  document.getElementById('ctCount').textContent=rows.length+' de '+(ST.ctProyectos||[]).length+' proyectos · fuente: fetchProyectos() → /api/constructoras';
+  if(!rows.length){ tb.innerHTML=`<tr><td colspan="12"><div class="empty"><div class="empty-icon">🏗️</div><div class="empty-title">Sin proyectos</div><div class="empty-sub">No hay resultados con esos filtros</div></div></td></tr>`; return; }
+  tb.innerHTML=rows.map((p,i)=>{
+    const prog=p.cnxVendidas?Math.round(p.cnxLegalizadas/p.cnxVendidas*100):0;
+    const pc=ctProg(prog); const osfC=p.osfPendiente>0?CTC.err:CTC.ok;
+    return `<tr>
+      <td><span style="color:var(--gris)">${i+1}</span></td>
+      <td><div style="font-weight:600;color:var(--azul)">${p.proyecto}</div><div class="sub">${p.subproyecto||''}</div></td>
+      <td><span style="font-size:12px">${p.constructora}</span></td>
+      <td><span style="font-size:12px">${p.ejecutivo}</span></td>
+      <td>${ctBadge(p.localidad,CTC.azul)}</td>
+      <td>${ctBadge(p.tipo,CTC.acento)}</td>
+      <td style="text-align:right;font-weight:600" class="mono">${ctNf(p.cnxVendidas)}</td>
+      <td><div class="ct-prog"><div class="ct-prog-track"><div class="ct-prog-fill" style="width:${prog}%;background:${pc}"></div></div><span style="font-size:11px;font-weight:600;color:${pc};white-space:nowrap">${p.cnxLegalizadas}/${p.cnxVendidas}</span></div></td>
+      <td><span class="ct-sem" style="color:${osfC}"><span class="ct-dot" style="background:${osfC}"></span>${p.osfPendiente}</span></td>
+      <td>${ctBadge(p.redExterna,ctRedColor(p.redExterna))}</td>
+      <td>${ctBadge(p.estado,ctEstadoColor(p.estado))}</td>
+      <td><span style="font-size:11px;color:var(--gris)">${p.notas||''}</span></td>
+    </tr>`;
+  }).join('');
+}
+function ctDonut(){
+  const ps=ST.ctProyectos||[]; const counts={}; ps.forEach(p=>counts[p.estado]=(counts[p.estado]||0)+1);
+  const total=ps.length||1; const r=54,cx=70,cy=70,circ=2*Math.PI*r; let off=0; let circles='';
+  const segs=CT_ESTADOS.filter(e=>counts[e]);
+  segs.forEach(e=>{ const frac=counts[e]/total; const c=ctEstadoColor(e); circles+=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${c}" stroke-width="22" stroke-dasharray="${frac*circ} ${circ}" stroke-dashoffset="${-off}" transform="rotate(-90 ${cx} ${cy})"></circle>`; off+=frac*circ; });
+  const legend=segs.map(e=>`<div class="ct-legend-item"><span class="ct-dot" style="background:${ctEstadoColor(e)}"></span><strong>${e}</strong><span style="color:var(--gris)">${counts[e]}</span></div>`).join('');
+  return `<div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap"><svg width="140" height="140" viewBox="0 0 140 140">${circles}<text x="70" y="66" text-anchor="middle" font-size="26" font-weight="700" fill="${CTC.azul}">${ps.length}</text><text x="70" y="84" text-anchor="middle" font-size="10" fill="${CTC.gris}">proyectos</text></svg><div class="ct-legend">${legend}</div></div>`;
+}
+function ctBars(data){ const max=Math.max(1,...data.map(d=>d.value)); return `<div class="ct-hbars">`+data.map(d=>`<div class="ct-hrow"><div class="ct-hlabel" title="${d.label}">${d.label}</div><div class="ct-htrack"><div class="ct-hfill" style="width:${Math.max(4,d.value/max*100)}%;background:${d.color}"></div></div><div class="ct-hval">${ctNf(d.value)}</div></div>`).join('')+`</div>`; }
+function ctRenderInformes(){
+  const ps=ST.ctProyectos||[];
+  document.getElementById('ctDonutWrap').innerHTML=ctDonut();
+  const mc={}; ps.forEach(p=>mc[p.constructora]=(mc[p.constructora]||0)+(p.cnxVendidas-p.cnxLegalizadas));
+  document.getElementById('ctBarConst').innerHTML=ctBars(Object.entries(mc).map(([label,value])=>({label,value,color:CTC.warn})).sort((a,b)=>b.value-a.value).slice(0,6));
+  const me={}; ps.forEach(p=>me[p.ejecutivo]=(me[p.ejecutivo]||0)+1);
+  document.getElementById('ctBarEjec').innerHTML=ctBars(Object.entries(me).map(([label,value])=>({label,value,color:CTC.azul})).sort((a,b)=>b.value-a.value));
+  const ml={}; ps.forEach(p=>ml[p.localidad]=(ml[p.localidad]||0)+1);
+  document.getElementById('ctBarLoc').innerHTML=ctBars(Object.entries(ml).map(([label,value])=>({label,value,color:CTC.acento})).sort((a,b)=>b.value-a.value));
+  document.getElementById('tbCtResumen').innerHTML=CT_TIPOS.map(t=>{
+    const g=ps.filter(p=>p.tipo===t); const vend=g.reduce((a,p)=>a+p.cnxVendidas,0); const leg=g.reduce((a,p)=>a+p.cnxLegalizadas,0); const por=vend-leg; const av=vend?Math.round(leg/vend*100):0;
+    return `<tr><td style="font-weight:600;color:var(--azul)">${t}</td><td style="text-align:right" class="mono">${g.length}</td><td style="text-align:right" class="mono">${ctNf(vend)}</td><td style="text-align:right;color:var(--ok)" class="mono">${ctNf(leg)}</td><td style="text-align:right;color:var(--warn)" class="mono">${ctNf(por)}</td><td><div class="ct-prog"><div class="ct-prog-track"><div class="ct-prog-fill" style="width:${av}%;background:${ctProg(av)}"></div></div><span style="font-size:11px;font-weight:600;color:${ctProg(av)}">${av}%</span></div></td></tr>`;
+  }).join('');
+}
+function ctRenderNegociacion(){
+  const d=CT_NEG;
+  document.getElementById('ctNegCount').textContent=d.length;
+  document.getElementById('ctNegUnid').textContent=ctNf(d.reduce((a,x)=>a+x.unidades,0));
+  document.getElementById('ctNegPond').textContent=ctNf(Math.round(d.reduce((a,x)=>a+x.unidades*x.prob/100,0)));
+  document.getElementById('ctNegCorto').textContent=d.filter(x=>/2027/.test(x.inicio)).length;
+  document.getElementById('tbCtNeg').innerHTML=d.map((x,i)=>`<tr>
+    <td><span style="color:var(--gris)">${i+1}</span></td>
+    <td><div style="font-weight:600;color:var(--azul)">${x.proyecto}</div><div class="sub">${x.notas||''}</div></td>
+    <td><span style="font-size:12px">${x.constructora}</span></td>
+    <td><span style="font-size:12px">${x.ejecutivo}</span></td>
+    <td>${ctBadge(x.localidad,CTC.azul)}</td>
+    <td>${ctBadge(x.tipo,CTC.acento)}</td>
+    <td style="text-align:right;font-weight:600" class="mono">${ctNf(x.unidades)}</td>
+    <td><span class="mono" style="font-size:12px">${x.inicio}</span></td>
+    <td>${ctBadge(x.etapa,ctEtapaColor(x.etapa))}</td>
+    <td><div class="ct-prog"><div class="ct-prog-track"><div class="ct-prog-fill" style="width:${x.prob}%;background:${ctProbColor(x.prob)}"></div></div><span style="font-size:11px;font-weight:600;color:${ctProbColor(x.prob)}">${x.prob}%</span></div></td>
+  </tr>`).join('');
+}
+function ctRenderCotizacion(){
+  if(!ctCot.items.length){ ctCot.items=[{concepto:'Cargo de conexión (CxC)', cantidad:(+document.getElementById('cotViviendas').value||1), valor:1200000}]; }
+  ctCotRenderRows(); ctCotRenderGuardadas();
+}
+function ctCotRenderRows(){
+  const tb=document.getElementById('tbCotItems');
+  if(!ctCot.items.length){ tb.innerHTML=`<tr><td colspan="5" style="text-align:center;color:var(--gris);font-size:12px;padding:18px">Agrega conceptos para construir la cotización</td></tr>`; ctCotRecalc(); return; }
+  tb.innerHTML=ctCot.items.map((it,i)=>`<tr>
+    <td><span style="font-size:13px">${it.concepto}</span></td>
+    <td style="text-align:right"><input type="number" min="0" value="${it.cantidad}" oninput="ctCotEdit(${i},'cantidad',this.value)" style="width:74px;padding:6px 8px;border:1px solid var(--gris-c);border-radius:6px;text-align:right;font-family:inherit"></td>
+    <td style="text-align:right"><input type="number" min="0" value="${it.valor}" oninput="ctCotEdit(${i},'valor',this.value)" style="width:120px;padding:6px 8px;border:1px solid var(--gris-c);border-radius:6px;text-align:right;font-family:inherit"></td>
+    <td style="text-align:right;font-weight:600" class="mono" id="cotRow${i}">${ctMoney(it.cantidad*it.valor)}</td>
+    <td style="text-align:right"><button class="btn btn-xs btn-ghost" onclick="ctCotDel(${i})">✕</button></td>
+  </tr>`).join('');
+  ctCotRecalc();
+}
+function ctCotEdit(i,campo,val){ ctCot.items[i][campo]=+val||0; const it=ctCot.items[i]; const cell=document.getElementById('cotRow'+i); if(cell) cell.textContent=ctMoney(it.cantidad*it.valor); ctCotRecalc(); }
+function ctCotDel(i){ ctCot.items.splice(i,1); ctCotRenderRows(); }
+function ctCotAddItem(){
+  const sel=document.getElementById('cotConcepto'); const cat=CT_COT_CATALOGO[sel.selectedIndex]||CT_COT_CATALOGO[0];
+  const viv=+document.getElementById('cotViviendas').value||1;
+  const cant=/CxC|Acometida|interna|Medidor|Regulador|Centro/i.test(cat.c)?viv:1;
+  ctCot.items.push({concepto:cat.c, cantidad:cant, valor:cat.v}); ctCotRenderRows();
+}
+function ctCotRecalc(){
+  const sub=ctCot.items.reduce((a,it)=>a+it.cantidad*it.valor,0); const iva=sub*0.19; const tot=sub+iva;
+  document.getElementById('cotSubtotal').textContent=ctMoney(sub);
+  document.getElementById('cotIva').textContent=ctMoney(iva);
+  document.getElementById('cotTotal').textContent=ctMoney(tot);
+  const viv=+document.getElementById('cotViviendas').value||0;
+  document.getElementById('cotPorViv').textContent= viv? (ctMoney(tot/viv)+' por vivienda') : '';
+}
+function ctCotTotales(){ const sub=ctCot.items.reduce((a,it)=>a+it.cantidad*it.valor,0); return {sub,iva:sub*0.19,tot:sub*1.19}; }
+function ctCotRenderGuardadas(){
+  const tb=document.getElementById('tbCotGuardadas'); const list=ST.ctCotizaciones||[];
+  if(!list.length){ tb.innerHTML=`<tr><td colspan="6"><div class="empty"><div class="empty-icon">🧮</div><div class="empty-title">Sin cotizaciones guardadas</div></div></td></tr>`; return; }
+  tb.innerHTML=list.map(c=>`<tr><td><span class="mono" style="font-size:11px">${c.fecha}</span></td><td>${c.proyecto}</td><td>${c.constructora||'—'}</td><td>${c.ejecutivo||'—'}</td><td style="text-align:right" class="mono">${c.viviendas}</td><td style="text-align:right;font-weight:600;color:var(--azul)" class="mono">${ctMoney(c.total)}</td></tr>`).join('');
+}
+function ctCotGuardar(){
+  const proy=document.getElementById('cotProyecto').value.trim();
+  if(!proy){ toast('Ingresa el nombre del proyecto','err'); return; }
+  if(!ctCot.items.length){ toast('Agrega al menos un concepto','err'); return; }
+  const t=ctCotTotales();
+  if(!ST.ctCotizaciones) ST.ctCotizaciones=[];
+  ST.ctCotizaciones.unshift({ fecha:new Date().toISOString().slice(0,10), proyecto:proy, constructora:document.getElementById('cotConstructora').value.trim(), ejecutivo:document.getElementById('cotEjec').value, viviendas:+document.getElementById('cotViviendas').value||0, total:t.tot });
+  saveSession(); ctCotRenderGuardadas(); toast('Cotización guardada','ok');
+}
+function ctCotPrint(){
+  const t=ctCotTotales();
+  const g=id=>document.getElementById(id).value||'—';
+  const filas=ctCot.items.map(it=>`<tr><td>${it.concepto}</td><td style="text-align:right">${it.cantidad}</td><td style="text-align:right">${ctMoney(it.valor)}</td><td style="text-align:right">${ctMoney(it.cantidad*it.valor)}</td></tr>`).join('');
+  const html=`<html><head><meta charset="utf-8"><title>Cotización ${g('cotProyecto')}</title><style>body{font-family:Arial,sans-serif;color:#1E293B;padding:32px;max-width:760px;margin:auto}h1{color:#0F3460;font-size:20px;margin:0}table{width:100%;border-collapse:collapse;margin-top:16px}th,td{padding:8px 10px;border-bottom:1px solid #E2E8F0;font-size:13px}th{background:#F1F5F9;text-align:left}.tot{display:flex;justify-content:flex-end;margin-top:14px}.tot>div{width:260px}.row{display:flex;justify-content:space-between;font-size:13px;padding:3px 0}.grand{font-size:16px;font-weight:700;color:#0F3460;border-top:1px solid #E2E8F0;padding-top:6px;margin-top:6px}.hd{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #0F3460;padding-bottom:10px}.meta td{border:none;font-size:13px}</style></head><body><div class="hd"><div><h1>Cotización de proyecto</h1><div style="font-size:12px;color:#64748B">IMPULSA 360 · Ventas Constructoras</div></div><div style="text-align:right;font-size:12px;color:#64748B">${new Date().toLocaleDateString('es-CO')}</div></div><table class="meta" style="margin-top:12px"><tr><td><strong>Proyecto:</strong> ${g('cotProyecto')}</td><td><strong>Constructora:</strong> ${g('cotConstructora')}</td></tr><tr><td><strong>Ejecutivo:</strong> ${g('cotEjec')}</td><td><strong>N° viviendas:</strong> ${g('cotViviendas')}</td></tr></table><table><thead><tr><th>Concepto</th><th style="text-align:right">Cant.</th><th style="text-align:right">Valor unitario</th><th style="text-align:right">Subtotal</th></tr></thead><tbody>${filas}</tbody></table><div class="tot"><div><div class="row"><span>Subtotal</span><span>${ctMoney(t.sub)}</span></div><div class="row"><span>IVA (19%)</span><span>${ctMoney(t.iva)}</span></div><div class="row grand"><span>Total</span><span>${ctMoney(t.tot)}</span></div></div></div></body></html>`;
+  const w=window.open('','_blank'); if(!w){ toast('Permite ventanas emergentes para imprimir','err'); return; } w.document.write(html); w.document.close(); w.focus(); setTimeout(()=>w.print(),300);
+}
+function ctExportCSV(){
+  const rows=ctFiltered();
+  const cols=['id','proyecto','subproyecto','constructora','ejecutivo','localidad','tipo','cnxVendidas','intVendidas','cnxLegalizadas','osfPendiente','firma','redExterna','estado','permiso','notas'];
+  const esc=v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"';
+  const csv=[cols.join(';'),...rows.map(r=>cols.map(c=>esc(r[c])).join(';'))].join('\n');
+  const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8;'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download='constructoras_'+new Date().toISOString().slice(0,10)+'.csv';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+  toast('CSV exportado','ok');
+}
+function ctAbrirModal(){
+  ['npProyecto','npSub','npConstructora','npCxc','npInt','npLeg','npOsf','npNotas'].forEach(id=>document.getElementById(id).value='');
+  ['npEjec','npTipo','npLoc','npFirma','npRed','npEstado','npPermiso'].forEach(id=>document.getElementById(id).selectedIndex=0);
+  openModal('modalNuevoProy');
+}
+function ctGuardar(){
+  const nombre=document.getElementById('npProyecto').value.trim();
+  if(!nombre){ toast('Ingresa el nombre del proyecto','err'); return; }
+  const v=id=>document.getElementById(id).value;
+  const nuevo={ id:Date.now(), proyecto:nombre, subproyecto:v('npSub').trim(), constructora:v('npConstructora').trim(),
+    ejecutivo:v('npEjec'), tipo:v('npTipo'), localidad:v('npLoc'),
+    cnxVendidas:+v('npCxc')||0, intVendidas:+v('npInt')||0, cnxLegalizadas:+v('npLeg')||0, osfPendiente:+v('npOsf')||0,
+    firma:v('npFirma'), redExterna:v('npRed'), estado:v('npEstado'), permiso:v('npPermiso'), notas:v('npNotas').trim() };
+  if(!ST.ctProyectos) ST.ctProyectos=[];
+  ST.ctProyectos.push(nuevo); saveSession();
+  closeModal('modalNuevoProy'); ctRender(); toast('Proyecto creado','ok');
+}
+let _ctBuscarT;
+function ctBuscar(){ clearTimeout(_ctBuscarT); _ctBuscarT=setTimeout(ctRenderTabla,180); }
+
 let _buscarT;
 function onBuscar(){ clearTimeout(_buscarT); _buscarT=setTimeout(renderOrdenes,180); }
 
@@ -1137,10 +2060,44 @@ document.getElementById('loginUser').addEventListener('keydown',e=>{ if(e.key===
     ST.usuario=s.usuario;
     ST.ordenes=Array.isArray(s.ordenes)?s.ordenes:[];
     ST.ivrRecords=Array.isArray(s.ivrRecords)?s.ivrRecords:[];
+    ST.ctProyectos=Array.isArray(s.ctProyectos)?s.ctProyectos:[];
+    ST.ctCotizaciones=Array.isArray(s.ctCotizaciones)?s.ctCotizaciones:[];
     ST._lastSync=s.ts||0;
     iniciarApp(true);
   }
 })();
+
+function openModalNegocio(){
+  ['nnProyecto','nnConstructora','nnInicio','nnNotas'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('nnUnidades').value='';
+  document.getElementById('nnProb').value='';
+  document.getElementById('nnEtapa').value='Prospecto';
+  openModal('modalNuevoNegocio');
+}
+
+function guardarNuevoNegocio(){
+  const proyecto = document.getElementById('nnProyecto').value.trim();
+  const constructora = document.getElementById('nnConstructora').value.trim();
+  const unidades = parseInt(document.getElementById('nnUnidades').value)||0;
+  const prob = Math.min(100, Math.max(0, parseInt(document.getElementById('nnProb').value)||0));
+  if(!proyecto){ toast('Ingresa el nombre del proyecto','err'); return; }
+  if(!constructora){ toast('Ingresa la constructora','err'); return; }
+  CT_NEG.push({
+    proyecto,
+    constructora,
+    ejecutivo: document.getElementById('nnEjec').value,
+    localidad: document.getElementById('nnLoc').value,
+    tipo:      document.getElementById('nnTipo').value,
+    unidades,
+    etapa:     document.getElementById('nnEtapa').value,
+    prob,
+    inicio:    document.getElementById('nnInicio').value.trim()||'—',
+    notas:     document.getElementById('nnNotas').value.trim(),
+  });
+  closeModal('modalNuevoNegocio');
+  ctRenderNegociacion();
+  toast('Negocio registrado en el pipeline','ok');
+}
 </script>
 </body>
 </html>
